@@ -1,6 +1,7 @@
 import streamlit as st
 from pathlib import Path
 import base64
+#streamlit run page.py
 
 # 로고
 img_path = Path("assets/Logo.png")
@@ -76,17 +77,17 @@ with st.container():
         st.markdown('''
         <div style="position: relative; background-color: #FFF3EB; min-height: 60vh; border-radius: 8px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; font-size: 25px; font-weight: bold; color: rgba(0, 0, 0, 0.7); padding: 0; gap: 20px;">
             <div style="display: flex; align-items: center;">
-                <div style="background-color: rgba(138, 138, 138, 0.2); color: rgba(0, 0, 0, 0.7); border: 3px solid #F36F20; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 0 15px; flex-shrink: 0;">1</div>
+                <div style="background-color: rgba(138, 138, 138, 0.2); color: rgba(0, 0, 0, 0.7); border: 3px solid #F36F20; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">1</div>
                 Demographics
             </div>
-            <div style="position: absolute; top: 220px; left: 35px; width: 3px; height: 30px; background-color: rgba(138, 138, 138, 0.2);"></div>
+            <div style="position: absolute; top: 138px; left: 40px; width: 3px; height: 110px; background-color: rgba(138, 138, 138, 0.2);"></div>
             <div style="display: flex; align-items: center;">
-                <div style="background-color: rgba(138, 138, 138, 0.2); color: #777777; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 0 15px; flex-shrink: 0;">2</div>
+                <div style="background-color: rgba(138, 138, 138, 0.2); color: #777777; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">2</div>
                 <span style="color: #777777;">Liposuction Information</span>
             </div>
-            <div style="position: absolute; top: 300px; left: 35px; width: 3px; height: 30px; background-color: rgba(138, 138, 138, 0.2);"></div>
+            <div style="position: absolute; top: 298px; left: 40px; width: 3px; height: 110px; background-color: rgba(138, 138, 138, 0.2);"></div>
             <div style="display: flex; align-items: center;">
-                <div style="background-color: rgba(138, 138, 138, 0.2); color: #777777; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 0 15px; flex-shrink: 0;">3</div>
+                <div style="background-color: rgba(138, 138, 138, 0.2); color: #777777; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">3</div>
                 <span style="color: #777777;">Body Composition</span>
             </div>
         </div>
