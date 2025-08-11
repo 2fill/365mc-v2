@@ -89,13 +89,14 @@ st.markdown(
     
     /* Age */
     input[type="number"] {{
-        background-color: #F36F20 !important;
+        background-color: #FFFFFF !important;
         border-radius: 5px !important;
         padding: 5px 10px !important;
         box-shadow: none !important; 
         height: 40px !important; 
         width: 150px;
         font-size: 20px !important;
+        color: rgba(0, 0, 0, 0.7);
     }}
     
     /* 스핀 버튼 */
@@ -105,11 +106,20 @@ st.markdown(
         margin: 0 !important;
     }}
     
-    /* Next 버튼 위치 */
-    .next-btn-wrapper {{
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
+    .stButton>button {{
+        background-color: #E9E3E0 !important;  /* 회색 */
+        color: rgba(0, 0, 0, 0.7) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        cursor: pointer !important;
+        transition: background-color 0.3s ease !important;
+        width: 250px;
+    }}
+
+    /* 클릭 시 주황색 */
+    .stButton>button:active {{
+        background-color: #F36F20 !important; 
+        color: white !important;
     }}
     
     </style>
@@ -177,34 +187,29 @@ with st.container():
 
         st.markdown(
             """
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
                 <label style="font-weight: 600; font-size: 24px;">Age</label>
             """, unsafe_allow_html=True
         )
-        col1, col2, col3 = st.columns([2, 1, 1])
 
         if "age" not in st.session_state:
             st.session_state.age = 20
 
-        with col1:
-            age_input = st.number_input(
-                label="",
-                min_value=1,
-                max_value=120,
-                value=st.session_state.age,
-                label_visibility="collapsed"
-            )
+        age_input = st.number_input(
+            label="",
+            min_value=1,
+            max_value=120,
+            value=st.session_state.age,
+            label_visibility="collapsed",
+            key="age"
+        )
 
-        st.session_state.age = age_input
-
-        st.markdown('<div class="next-btn-wrapper">', unsafe_allow_html=True)
-        if st.button("Next"):
-            if gender and st.session_state.age:
-                sex_value = 1 if gender.lower() == "male" else 2
-                input_data = {"Sex": sex_value, "Age": st.session_state.age}
-                st.json(input_data)
-            else:
-                st.error("⚠ Please fill in *all fields* with valid values.")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
         st.markdown("</div>", unsafe_allow_html=True)
+        
+        st.markdown('<div style="flex-grow: 1;"></div>', unsafe_allow_html=True)
+        
+        st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
+        if st.button("Next"):
+            pass
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
