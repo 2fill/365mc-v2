@@ -685,3 +685,140 @@ elif st.session_state.page == "page3":
 
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+elif st.session_state.page == "page4":
+    # 로고
+    img_path = Path("assets/Logo.png")
+    check_img_path = Path("assets/check.png")
+    print(img_path.exists())
+
+    def img_to_base64(img_path):
+        with open(img_path, "rb") as img_file:
+            b64_str = base64.b64encode(img_file.read()).decode()
+        return b64_str
+
+    img_b64 = img_to_base64(img_path)
+    check_b64 = img_to_base64(check_img_path)
+
+    st.markdown(
+        f"""
+        <style>
+        
+        /* 배경 */
+        .stApp {{
+            background-color: #F36F20;
+        }}
+
+        /* 로고 */
+        .custom-logo {{
+            position: fixed;
+            top: 30px;
+            left: 50px;
+            width: 300px;
+        }}
+
+        /* 헤더 숨기기 */
+        header[data-testid="stHeader"] {{
+            display: none;
+        }}
+        
+        /* 메인 박스 */
+        section > div {{
+            height: 100% !important;
+            max-height: none !important;
+            width: 100% !important;
+            max-width: none !important;
+        }}
+
+        section > div > div {{
+            background-color: white !important;
+            padding: 50px !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            height: 100% !important;
+            width: 85% !important;
+            margin: 80px auto 40px auto !important;
+            color: rgba(0, 0, 0, 0.7) !important;
+            position: relative;
+        }}
+        
+        .info-box {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #E9E3E0;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin: 15px auto;
+            width: 400px;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.7);
+        }}
+
+        .value-box {{
+            background-color: #F36F20;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }}
+        
+        .complete-text {{
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+        }}
+
+        .stButton>button {{
+            background-color: #E9E3E0 !important;
+            color: rgba(0, 0, 0, 0.7) !important;
+            border: none !important;
+            border-radius: 10px !important;
+            cursor: pointer !important;
+            transition: background-color 0.3s ease !important;
+            width: 250px;
+            margin-top: 30px;
+        }}
+
+        .stButton>button:active {{
+            background-color: #F36F20 !important;
+            color: white !important;
+        }}
+        </style>
+
+        <img src="data:image/png;base64,{img_b64}" class="custom-logo" />
+        """,
+        unsafe_allow_html=True
+        )
+        
+    with st.container():
+        st.markdown(
+            f"""
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh; text-align: center;
+            ">
+                <div><img src="data:image/png;base64,{check_b64}" width="120"/></div>
+                <div class="complete-text">COMPLETE</div>
+                <div class="info-box"><span>Postoperative weight</span><span class="value-box">0.00</span></div>
+                <div class="info-box"><span>Postoperative size</span><span class="value-box">0.00</span></div>
+                <div style="margin-top: 40px;">
+                    <button onclick="window.location.reload()" 
+                        style="background-color: #E9E3E0; color: rgba(0, 0, 0, 0.7); border: none; border-radius: 10px; cursor: pointer; transition: background-color 0.3s ease; width: 250px; padding: 10px; font-size: 18px;font-weight: bold;
+                        "
+                    >Back to Start</button>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
