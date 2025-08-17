@@ -420,31 +420,70 @@ elif st.session_state.page == "page2":
             )
             
             st.markdown("</div>", unsafe_allow_html=True)
-            
+
             st.markdown(
                 """
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <label style="font-weight: 600; font-size: 24px;">Age</label>
+                <div style="display: flex; gap: 30px; margin-bottom: 15px;">
                 """, unsafe_allow_html=True
             )
 
-            if "age" not in st.session_state:
-                st.session_state.age = 20
+            col1, col2 = st.columns(2)
 
-            age_input = st.number_input(
-                label="",
-                min_value=1,
-                max_value=120,
-                label_visibility="collapsed",
-                key="age"
-            )
+            with col1:
+                preop_size = st.number_input(
+                    label="Preoperative size",
+                    min_value=0,
+                    max_value=1000,
+                    label_visibility="visible",
+                    key="preop_size"
+                )
+
+            with col2:
+                fat_volume = st.number_input(
+                    label="Fat volume",
+                    min_value=0,
+                    max_value=1000,
+                    label_visibility="visible",
+                    key="fat_volume"
+                )
 
             st.markdown("</div>", unsafe_allow_html=True)
             
             st.markdown('<div style="flex-grow: 1;"></div>', unsafe_allow_html=True)
+
+            st.markdown(
+                """
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <label style="font-weight: 600; font-size: 24px;">Edema</label>
+                """, unsafe_allow_html=True
+            )
             
-            st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
-            if st.button("Next", key="next_page2"):
-                st.session_state.page = "page3"
+            site = st.radio(
+                label="",
+                options=["No edema", "Mild edema", "Moderate to severe edema"],
+                horizontal=True,
+                label_visibility="collapsed"
+            )
+            
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            st.markdown(
+                """
+                <div style="display: flex; gap: 30px; margin-bottom: 15px;">
+                """, unsafe_allow_html=True
+            )
+            
+            st.markdown('<div style="display: flex; justify-content: flex-end; gap: 20px;">', unsafe_allow_html=True)
+
+            col_back, col_next = st.columns([1, 1])
+
+            with col_back:
+                if st.button("Back", key="back_page2"):
+                    st.session_state.page = "page1"
+
+            with col_next:
+                if st.button("Next", key="next_page2"):
+                    st.session_state.page = "page3"
+
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
