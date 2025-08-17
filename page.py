@@ -212,7 +212,7 @@ if st.session_state.page == "page1":
             st.markdown('<div style="flex-grow: 1;"></div>', unsafe_allow_html=True)
             
             st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
-            if st.button("Next"):
+            if st.button("Next", key="next_page1"):
                 st.session_state.page = "page2"
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -363,13 +363,13 @@ elif st.session_state.page == "page2":
             st.markdown('''
             <div style="position: relative; background-color: #FFF3EB; min-height: 60vh; border-radius: 8px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; font-size: 25px; font-weight: bold; color: rgba(0, 0, 0, 0.7); padding: 0; gap: 20px; margin-right: 70px;">
                 <div style="display: flex; align-items: center;">
-                    <div style="background-color: rgba(138, 138, 138, 0.2); color: rgba(0, 0, 0, 0.7); border: 3px solid #F36F20; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">1</div>
-                    Demographics
-                </div>
-                <div style="position: absolute; top: 138px; left: 40px; width: 3px; height: 110px; background-color: rgba(138, 138, 138, 0.2);"></div>
-                <div style="display: flex; align-items: center;">
-                    <div style="background-color: rgba(138, 138, 138, 0.2); color: #777777; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">2</div>
+                    <div style="background-color: #F36F20; color: FFFFFF; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">✔️</div>
                     <span style="color: #777777;">Liposuction Information</span>
+                </div>
+                <div style="position: absolute; top: 138px; left: 40px; width: 3px; height: 110px; background-color: #F36F20;"></div>
+                <div style="display: flex; align-items: center;">
+                    <div style="background-color: rgba(138, 138, 138, 0.2); color: rgba(0, 0, 0, 0.7); border: 3px solid #F36F20; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">2</div>
+                    <span style="color: rgba(0, 0, 0, 0.7);">Liposuction Information</span>
                 </div>
                 <div style="position: absolute; top: 298px; left: 40px; width: 3px; height: 110px; background-color: rgba(138, 138, 138, 0.2);"></div>
                 <div style="display: flex; align-items: center;">
@@ -392,13 +392,29 @@ elif st.session_state.page == "page2":
             st.markdown(
                 """
                 <div style="display: flex; align-items: center;">
-                    <label style="font-weight: 600; font-size: 24px;">Sex</label>
+                    <label style="font-weight: 600; font-size: 24px;">Liposuction type</label>
                 """, unsafe_allow_html=True
             )
             
-            gender = st.radio(
+            type = st.radio(
                 label="",
-                options=["Male", "Female"],
+                options=["Lams", "Surgery"],
+                horizontal=True,
+                label_visibility="collapsed"
+            )
+            
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            st.markdown(
+                """
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <label style="font-weight: 600; font-size: 24px;">Liposuction site</label>
+                """, unsafe_allow_html=True
+            )
+            
+            site = st.radio(
+                label="",
+                options=["Abdomen", "Arms", "Backs", "Buttocks", "Calves", "Flanks", "Thighs"],
                 horizontal=True,
                 label_visibility="collapsed"
             )
@@ -428,7 +444,7 @@ elif st.session_state.page == "page2":
             st.markdown('<div style="flex-grow: 1;"></div>', unsafe_allow_html=True)
             
             st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
-            if st.button("Next"):
-                pass
+            if st.button("Next", key="next_page2"):
+                st.session_state.page = "page3"
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
