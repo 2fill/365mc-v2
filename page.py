@@ -203,7 +203,6 @@ if st.session_state.page == "page1":
                 label="",
                 min_value=1,
                 max_value=120,
-                value=st.session_state.age,
                 label_visibility="collapsed",
                 key="age"
             )
@@ -420,7 +419,6 @@ elif st.session_state.page == "page2":
                 label="",
                 min_value=1,
                 max_value=120,
-                value=st.session_state.age,
                 label_visibility="collapsed",
                 key="age"
             )
@@ -431,6 +429,6 @@ elif st.session_state.page == "page2":
             
             st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
             if st.button("Next"):
-               pass
+                pass
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
