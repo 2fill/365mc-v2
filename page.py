@@ -24,12 +24,10 @@ if st.session_state.page == "page1":
         f"""
         <style>
         
-        /* 배경 */
         .stApp {{
             background: linear-gradient(296.81deg, #F4E1D6 -47.61%, #F36F20 50%);
         }}
 
-        /* 로고 */
         .custom-logo {{
             position: fixed;
             top: 30px;
@@ -37,12 +35,10 @@ if st.session_state.page == "page1":
             width: 300px;
         }}
 
-        /* 헤더 숨기기 */
         header[data-testid="stHeader"] {{
             display: none;
         }}
         
-        /* 메인 박스 */
         section > div {{
             height: 100% !important;
             max-height: none !important;
@@ -64,8 +60,8 @@ if st.session_state.page == "page1":
         
         div[role="radiogroup"] label {{
             display: flex;
-            align-items: center; /* 세로 가운데 정렬 */
-            gap: 4px; /* 버튼과 텍스트 사이 간격 */
+            align-items: center; 
+            gap: 4px; 
             margin-right: 50px;
         }}
         
@@ -86,13 +82,11 @@ if st.session_state.page == "page1":
         font-size: 20px !important;
         }}
         
-        /* 좌우 컬럼 부모 */
         div[data-testid="stVerticalBlock"] > div {{
             height: 100% !important;
             display: flex !important;
         }}
         
-        /* Age */
         input[type="number"] {{
             background-color: #FFFFFF !important;
             border-radius: 5px !important;
@@ -104,7 +98,6 @@ if st.session_state.page == "page1":
             color: rgba(0, 0, 0, 0.7);
         }}
         
-        /* 스핀 버튼 */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {{
             -webkit-appearance: none !important;
@@ -115,13 +108,12 @@ if st.session_state.page == "page1":
             background-color: #E9E3E0 !important;  /* 회색 */
             color: rgba(0, 0, 0, 0.7) !important;
             border: none !important;
-            border-radius: 10px !important;
+            border-radius: 20px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
             width: 100px;
         }}
 
-        /* 클릭 시 주황색 */
         .stButton>button:active {{
             background-color: #F36F20 !important; 
             color: white !important;
@@ -141,8 +133,7 @@ if st.session_state.page == "page1":
 
 
     with st.container():
-        # 좌우 박스 생성
-        left_col, right_col = st.columns([1, 3])  # 비율
+        left_col, right_col = st.columns([1, 3])  
 
         with left_col:
             st.markdown('''
@@ -241,7 +232,6 @@ elif st.session_state.page == "page2":
     checkbox_path = Path("assets/CheckBox.png") 
     checkbox_b64 = img_to_base64(checkbox_path)
 
-    # 마크다운
     st.markdown(
         f"""
         <style>
@@ -250,7 +240,6 @@ elif st.session_state.page == "page2":
             background: linear-gradient(296.81deg, #F4E1D6 -47.61%, #F36F20 50%);
         }}
 
-        /* 로고 */
         .custom-logo {{
             position: fixed;
             top: 30px;
@@ -262,7 +251,6 @@ elif st.session_state.page == "page2":
             display: none;
         }}
         
-        /* 메인 박스 */
         section > div {{
             height: 100% !important;
             max-height: none !important;
@@ -284,8 +272,8 @@ elif st.session_state.page == "page2":
         
         div[role="radiogroup"] label {{
             display: flex;
-            align-items: center; /* 세로 가운데 정렬 */
-            gap: 4px; /* 버튼과 텍스트 사이 간격 */
+            align-items: center;
+            gap: 4px; 
             margin-right: 50px;
         }}
         
@@ -332,7 +320,7 @@ elif st.session_state.page == "page2":
             background-color: #E9E3E0 !important;  /* 회색 */
             color: rgba(0, 0, 0, 0.7) !important;
             border: none !important;
-            border-radius: 10px !important;
+            border-radius: 20px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
             width: 100px;
@@ -358,8 +346,7 @@ elif st.session_state.page == "page2":
         )
         
     with st.container():
-        # 좌우 박스 생성
-        left_col, right_col = st.columns([1, 3])  # 비율
+        left_col, right_col = st.columns([1, 3])
 
         with left_col:
             st.markdown(f'''
@@ -511,7 +498,6 @@ elif st.session_state.page == "page2":
 
 
 elif st.session_state.page == "page3":
-    # 로고
     img_path = Path("assets/Logo.png")
     print(img_path.exists())
 
@@ -525,7 +511,6 @@ elif st.session_state.page == "page3":
     checkbox_path = Path("assets/CheckBox.png") 
     checkbox_b64 = img_to_base64(checkbox_path)
 
-    # 마크다운
     st.markdown(
         f"""
         <style>
@@ -590,7 +575,7 @@ elif st.session_state.page == "page3":
             background-color: #E9E3E0 !important;  /* 회색 */
             color: rgba(0, 0, 0, 0.7) !important;
             border: none !important;
-            border-radius: 10px !important;
+            border-radius: 20px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
             width: 100px;
@@ -610,7 +595,6 @@ elif st.session_state.page == "page3":
         )
         
     with st.container():
-        # 좌우 박스 생성
         left_col, right_col = st.columns([1, 3])
 
         with left_col:
@@ -713,7 +697,6 @@ elif st.session_state.page == "page3":
 
 
 elif st.session_state.page == "page4":
-    # 로고
     img_path = Path("assets/Logo.png")
     check_img_path = Path("assets/check.png")
     print(img_path.exists())
@@ -762,6 +745,10 @@ elif st.session_state.page == "page4":
             margin: 80px auto 40px auto !important;
             color: rgba(0, 0, 0, 0.7) !important;
             position: relative;
+            display: flex !important;         
+            flex-direction: column !important; 
+            justify-content: center !important; 
+            align-items: center !important;    
         }}
         
         .info-box {{
