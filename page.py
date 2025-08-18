@@ -683,26 +683,26 @@ elif st.session_state.page == "page3":
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Skeletal muscle mass</div>', unsafe_allow_html=True)
-                smm = st.number_input("", min_value=0.0, max_value=200.0, key="smm", label_visibility="collapsed")
+                smm = st.number_input("", min_value=10.0, max_value=80.0, key="smm", label_visibility="collapsed")
             with col2:
                 st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body fat mass</div>', unsafe_allow_html=True)
-                tbw = st.number_input("", min_value=0.0, max_value=200.0, key="tbw", label_visibility="collapsed")
+                tbw = st.number_input("", min_value=5.0, max_value=80.0, key="tbw", label_visibility="collapsed")
 
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Fat-free mass</div>', unsafe_allow_html=True)
-                ffm = st.number_input("", min_value=0.0, max_value=200.0, key="ffm", label_visibility="collapsed")
+                ffm = st.number_input("", min_value=30.0, max_value=120.0, key="ffm", label_visibility="collapsed")
             with col2:
                 st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body protein</div>', unsafe_allow_html=True)
-                bp = st.number_input("", min_value=0.0, max_value=200.0, key="bp", label_visibility="collapsed")
+                bp = st.number_input("", min_value=5.0, max_value=40.0, key="bp", label_visibility="collapsed")
             with col3:
                 st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body mineral</div>', unsafe_allow_html=True)
-                bm = st.number_input("", min_value=0.0, max_value=200.0, key="bm", label_visibility="collapsed")
+                bm = st.number_input("", min_value=2.0, max_value=10.0, key="bm", label_visibility="collapsed")
 
             col1 = st.columns(1)[0]
             with col1:
                 st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Waist-hip ratio</div>', unsafe_allow_html=True)
-                whr = st.number_input("", min_value=0.0, max_value=5.0, key="whr", label_visibility="collapsed")
+                whr = st.number_input("", min_value=0.3, max_value=1.5, key="whr", label_visibility="collapsed")
 
             st.markdown("</div>", unsafe_allow_html=True)
             
