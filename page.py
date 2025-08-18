@@ -781,8 +781,8 @@ elif st.session_state.page == "page4":
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 2px solid #E9E3E0;
-            border-radius: 8px;
+            border: 1px solid #E9E3E0;
+            border-radius: 20px;
             padding: 10px 20px;
             margin: 15px auto;
             width: 400px;
@@ -831,19 +831,18 @@ elif st.session_state.page == "page4":
     with st.container():
         st.markdown(
             f"""
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh; text-align: center;
-            ">
-                <div><img src="data:image/png;base64,{check_b64}" width="120"/></div>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <div><img src="data:image/png;base64,{check_b64}" width="50"/></div>
                 <div class="complete-text">COMPLETE</div>
-                <div class="info-box"><span>Postoperative weight</span><span class="value-box">0.00</span></div>
+                <div class="info-box" style="margin-bottom: -5px;"><span>Postoperative weight</span><span class="value-box">0.00</span></div>
                 <div class="info-box"><span>Postoperative size</span><span class="value-box">0.00</span></div>
             </div>
             """,
             unsafe_allow_html=True
         )
         
-        st.markdown('<div style="margin-top:40px; display:flex; justify-content:center;">', unsafe_allow_html=True)
-        if st.button("Back to Start"):
-            st.session_state.page = "page1"
-            st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1.4, 1, 1])
+        with col2:
+            if st.button("Back to Start"):
+                st.session_state.page = "page1"
+                st.rerun()
