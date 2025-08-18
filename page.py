@@ -303,7 +303,7 @@ elif st.session_state.page == "page2":
         }}
         
         div[role="radiogroup"] label > div > div {{
-        font-size: 20px !important;
+            font-size: 20px !important;
         }}
         
         /* 좌우 컬럼 부모 */
@@ -312,7 +312,7 @@ elif st.session_state.page == "page2":
             display: flex !important;
         }}
         
-        /* Age */
+        /* Input box */
         input[type="number"] {{
             background-color: #FFFFFF !important;
             border-radius: 5px !important;
@@ -345,6 +345,11 @@ elif st.session_state.page == "page2":
         .stButton>button:active {{
             background-color: #F36F20 !important; 
             color: white !important;
+        }}
+        
+        div[data-testid="stRadio"],
+        div[data-testid="stNumberInput"] {{
+            margin-bottom: -20px !important;
         }}
         
         </style>
@@ -408,7 +413,7 @@ elif st.session_state.page == "page2":
 
             st.markdown(
                 """
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="display: flex; align-items: center;">
                     <label style="font-weight: 600; font-size: 24px;">Liposuction site</label>
                 """, unsafe_allow_html=True
             )
@@ -424,27 +429,37 @@ elif st.session_state.page == "page2":
 
             st.markdown(
                 """
-                <div style="display: flex; gap: 30px; margin-bottom: 15px;">
+                <div style="display: flex;">
                 """, unsafe_allow_html=True
             )
 
             col1, col2 = st.columns(2)
 
             with col1:
+                st.markdown(
+                    """
+                    <label style="font-weight: 600; font-size: 24px;">Preoperative size</label>
+                    """, unsafe_allow_html=True
+                )
                 preop_size = st.number_input(
-                    label="Preoperative size",
+                    label="",
                     min_value=0,
                     max_value=1000,
-                    label_visibility="visible",
+                    label_visibility="collapsed",
                     key="preop_size"
                 )
 
             with col2:
+                st.markdown(
+                    """
+                    <label style="font-weight: 600; font-size: 24px;">Fat volume</label>
+                    """, unsafe_allow_html=True
+                )
                 fat_volume = st.number_input(
-                    label="Fat volume",
+                    label="",
                     min_value=0,
                     max_value=1000,
-                    label_visibility="visible",
+                    label_visibility="collapsed",
                     key="fat_volume"
                 )
 
@@ -454,7 +469,7 @@ elif st.session_state.page == "page2":
 
             st.markdown(
                 """
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="display: flex; align-items: center;">
                     <label style="font-weight: 600; font-size: 24px;">Edema</label>
                 """, unsafe_allow_html=True
             )
@@ -470,11 +485,11 @@ elif st.session_state.page == "page2":
 
             st.markdown(
                 """
-                <div style="display: flex; gap: 30px; margin-bottom: 15px;">
+                <div style="display: flex;">
                 """, unsafe_allow_html=True
             )
             
-            st.markdown('<div style="display: flex; justify-content: flex-end; gap: 20px;">', unsafe_allow_html=True)
+            st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
 
             col_back, col_next = st.columns([1, 1])
 
