@@ -1,8 +1,6 @@
 import streamlit as st
 from pathlib import Path
 import base64
-from streamlit.components.v1 import html
-import pickle
 import pandas as pd
 import joblib
 #streamlit run page.py
