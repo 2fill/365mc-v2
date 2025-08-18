@@ -214,6 +214,7 @@ if st.session_state.page == "page1":
             st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
             if st.button("Next", key="next_page1"):
                 st.session_state.page = "page2"
+                st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -484,6 +485,7 @@ elif st.session_state.page == "page2":
             with col_next:
                 if st.button("Next", key="next_page2"):
                     st.session_state.page = "page3"
+                    st.rerun()
 
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -682,6 +684,7 @@ elif st.session_state.page == "page3":
             with col_next:
                 if st.button("Complete", key="next_page3"):
                     st.session_state.page = "page4"
+                    st.rerun()
 
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -812,13 +815,13 @@ elif st.session_state.page == "page4":
                 <div class="complete-text">COMPLETE</div>
                 <div class="info-box"><span>Postoperative weight</span><span class="value-box">0.00</span></div>
                 <div class="info-box"><span>Postoperative size</span><span class="value-box">0.00</span></div>
-                <div style="margin-top: 40px;">
-                    <button onclick="window.location.reload()" 
-                        style="background-color: #E9E3E0; color: rgba(0, 0, 0, 0.7); border: none; border-radius: 10px; cursor: pointer; transition: background-color 0.3s ease; width: 250px; padding: 10px; font-size: 18px;font-weight: bold;
-                        "
-                    >Back to Start</button>
-                </div>
             </div>
             """,
             unsafe_allow_html=True
         )
+        
+        st.markdown('<div style="margin-top:40px; display:flex; justify-content:center;">', unsafe_allow_html=True)
+        if st.button("Back to Start"):
+            st.session_state.page = "page1"
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
