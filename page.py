@@ -2,6 +2,8 @@ import streamlit as st
 from pathlib import Path
 import base64
 from streamlit.components.v1 import html
+import pickle
+import pandas as pd
 #streamlit run page.py
 
 if "page" not in st.session_state:
@@ -178,12 +180,17 @@ if st.session_state.page == "page1":
                 """, unsafe_allow_html=True
             )
             
-            gender = st.radio(
+            if "gender" not in st.session_state:
+                st.session_state.gender = 0
+            gender_str = st.radio(
                 label="",
                 options=["Male", "Female"],
+                index=st.session_state.gender,
                 horizontal=True,
                 label_visibility="collapsed"
             )
+            gender = 0 if gender_str == "Male" else 1
+            st.session_state.gender = gender
             
             st.markdown("</div>", unsafe_allow_html=True)
             
@@ -194,13 +201,11 @@ if st.session_state.page == "page1":
                 """, unsafe_allow_html=True
             )
 
-            if "age" not in st.session_state:
-                st.session_state.age = 20
-
             age_input = st.number_input(
                 label="",
                 min_value=1,
                 max_value=121,
+                value=1,
                 label_visibility="collapsed",
                 key="age"
             )
@@ -399,13 +404,17 @@ elif st.session_state.page == "page2":
                     <label style="font-weight: 600; font-size: 24px;">Liposuction type</label>
                 """, unsafe_allow_html=True
             )
-            
-            type = st.radio(
+            if "type" not in st.session_state:
+                st.session_state.type = 0
+            type_str = st.radio(
                 label="",
                 options=["Lams", "Surgery"],
+                index=st.session_state.type,
                 horizontal=True,
                 label_visibility="collapsed"
             )
+            type = 0 if type_str == "Lams" else 1
+            st.session_state.type = type
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -415,13 +424,17 @@ elif st.session_state.page == "page2":
                     <label style="font-weight: 600; font-size: 24px;">Liposuction site</label>
                 """, unsafe_allow_html=True
             )
-            
-            site = st.radio(
+            if "site" not in st.session_state:
+                st.session_state.site = 0
+            site_options = ["Abdomen", "Arms", "Backs", "Buttocks", "Calves", "Flanks", "Thighs"]
+            site_str = st.radio(
                 label="",
-                options=["Abdomen", "Arms", "Backs", "Buttocks", "Calves", "Flanks", "Thighs"],
+                options=site_options,
+                index=st.session_state.site,
                 horizontal=True,
                 label_visibility="collapsed"
             )
+            st.session_state.site = site_options.index(site_str)
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -439,12 +452,14 @@ elif st.session_state.page == "page2":
                     '<label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Preoperative size</label>', 
                     unsafe_allow_html=True
                 )
+                if "size" not in st.session_state:
+                    st.session_state.size = 1
                 preop_size = st.number_input(
                     label="",
                     min_value=1,
                     max_value=1000,
                     label_visibility="collapsed",
-                    key="preop_size"
+                    key="size"
                 )
 
             with col2:
@@ -453,10 +468,13 @@ elif st.session_state.page == "page2":
                     '<label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Fat volume</label>',
                     unsafe_allow_html=True
                 )
+                if "fat_volume" not in st.session_state:
+                    st.session_state.fat_volume = 50
                 fat_volume = st.number_input(
                     label="",
                     min_value=50,
                     max_value=10000,
+                    value=st.session_state.fat_volume,
                     label_visibility="collapsed",
                     key="fat_volume"
                 )
@@ -472,12 +490,17 @@ elif st.session_state.page == "page2":
                 """, unsafe_allow_html=True
             )
             
-            site = st.radio(
+            edema_options = ["No edema", "Mild edema", "Moderate to severe edema"]
+            if "edema" not in st.session_state:
+                st.session_state.edema = 0
+            edema_str = st.radio(
                 label="",
                 options=["No edema", "Mild edema", "Moderate to severe edema"],
+                index=st.session_state.edema,
                 horizontal=True,
                 label_visibility="collapsed"
             )
+            st.session_state.edema = edema_options.index(edema_str)
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -657,52 +680,78 @@ elif st.session_state.page == "page3":
                 """, unsafe_allow_html=True
             )
 
+            if "height" not in st.session_state:
+                st.session_state.height = 1 
+            if "weight" not in st.session_state:
+                st.session_state.weight = 1
+    
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Height</div>', unsafe_allow_html=True)
-                height = st.number_input("", min_value=1, max_value=300, key="height", label_visibility="collapsed")
+                height = st.number_input("", min_value=1, max_value=300, value=st.session_state.height, key="height", label_visibility="collapsed")
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Weight</div>', unsafe_allow_html=True)
-                weight = st.number_input("", min_value=1, max_value=200, key="weight", label_visibility="collapsed")
+                weight = st.number_input("", min_value=1, max_value=200, value=st.session_state.weight, key="weight", label_visibility="collapsed")
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">BMI</div>', unsafe_allow_html=True)
 
                 if height > 0:
-                    bmi_value = weight / ((height / 100) ** 2)
-                    bmi_value = round(bmi_value, 2)
+                    bmi = weight / ((height / 100) ** 2)
+                    bmi = round(bmi, 2)
                 else:
-                    bmi_value = 0
+                    bmi = 0
 
                 st.markdown(
                     f"""
-                    <div style="background-color: #E9E3E0; color: rgba(0, 0, 0, 0.7); border: none; border-radius: 20px; width: 100px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 500;">{bmi_value}</div>
+                    <div style="background-color: #E9E3E0; color: rgba(0, 0, 0, 0.7); border: none; border-radius: 20px; width: 100px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 500;">{bmi}</div>
                     """,
                     unsafe_allow_html=True
                 )
 
             col1, col2, col3 = st.columns(3)
+            if "smm" not in st.session_state:
+                st.session_state.smm = 10.0
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Skeletal muscle mass</div>', unsafe_allow_html=True)
-                smm = st.number_input("", min_value=10.0, max_value=80.0, key="smm", label_visibility="collapsed")
+                smm = st.number_input("", min_value=10.0, max_value=80.0, value=st.session_state.smm, key="smm", label_visibility="collapsed")
+                
+            if "bfm" not in st.session_state:
+                st.session_state.bfm = 5.0
             with col2:
-                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body fat mass</div>', unsafe_allow_html=True)
-                tbw = st.number_input("", min_value=5.0, max_value=80.0, key="tbw", label_visibility="collapsed")
-
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Fat-free mass</div>', unsafe_allow_html=True)
-                ffm = st.number_input("", min_value=30.0, max_value=120.0, key="ffm", label_visibility="collapsed")
-            with col2:
-                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body protein</div>', unsafe_allow_html=True)
-                bp = st.number_input("", min_value=5.0, max_value=40.0, key="bp", label_visibility="collapsed")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body fat mass</div>', unsafe_allow_html=True)
+                bfm = st.number_input("", min_value=5.0, max_value=80.0, value=st.session_state.bfm, key="bfm", label_visibility="collapsed")
+            
+            if "tbw" not in st.session_state:
+                st.session_state.tbw = 25.0
             with col3:
-                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body mineral</div>', unsafe_allow_html=True)
-                bm = st.number_input("", min_value=2.0, max_value=10.0, key="bm", label_visibility="collapsed")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Total body water</div>', unsafe_allow_html=True)
+                tbw = st.number_input("", min_value=25.0, max_value=70.0, value=st.session_state.tbw, key="tbw", label_visibility="collapsed")
+                
+            col1, col2, col3 = st.columns(3)
+            if "ffm" not in st.session_state:
+                st.session_state.ffm = 30.0
+            with col1:
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Fat-free mass</div>', unsafe_allow_html=True)
+                ffm = st.number_input("", min_value=30.0, max_value=120.0, value=st.session_state.ffm, key="ffm", label_visibility="collapsed")
+                
+            if "protein" not in st.session_state:
+                st.session_state.protein = 5.0
+            with col2:
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body protein</div>', unsafe_allow_html=True)
+                protein = st.number_input("", min_value=5.0, max_value=40.0, value=st.session_state.protein, key="protein", label_visibility="collapsed")
+                
+            if "mineral" not in st.session_state:
+                st.session_state.mineral = 2.0
+            with col3:
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body mineral</div>', unsafe_allow_html=True)
+                mineral = st.number_input("", min_value=2.0, max_value=10.0, value=st.session_state.mineral, key="mineral", label_visibility="collapsed")
 
             col1 = st.columns(1)[0]
+            if "whr" not in st.session_state:
+                st.session_state.whr = 0.3
             with col1:
-                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Waist-hip ratio</div>', unsafe_allow_html=True)
-                whr = st.number_input("", min_value=0.3, max_value=1.5, key="whr", label_visibility="collapsed")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Waist-hip ratio</div>', unsafe_allow_html=True)
+                whr = st.number_input("", min_value=0.3, max_value=1.5, value=st.session_state.whr, key="whr", label_visibility="collapsed")
 
             st.markdown("</div>", unsafe_allow_html=True)
             
@@ -745,6 +794,61 @@ elif st.session_state.page == "page4":
     img_b64 = img_to_base64(img_path)
     check_b64 = img_to_base64(check_path)
     jibang2_b64 = img_to_base64(jibang2_path)
+    
+    model_path = Path("assets/chained_et_reverse.pkl")
+    with open(model_path, "rb") as f:
+        model = pickle.load(f)
+
+    gender = st.session_state.gender
+    age = st.session_state.age
+    type = st.session_state.type
+    site = st.session_state.site
+    size = st.session_state.size
+    fat_volume = st.session_state.fat_volume
+    edema = st.session_state.edema
+    height = st.session_state.height
+    weight = st.session_state.weight
+    bmi = st.session_state.bmi
+    smm = st.session_state.smm
+    bfm = st.session_state.bfm
+    tbw = st.session_state.tbw
+    ffm = st.session_state.ffm
+    protein = st.session_state.protein
+    mineral = st.session_state.mineral
+    whr = st.session_state.whr
+    
+    input_dict = {
+        'Liposuction site': site,
+        'Edema': edema,
+        'Sex': gender,
+        'Age': age,
+        'Height': height,
+        'Fat volume': fat_volume,
+        'Weight': weight,
+        'Size': size,
+        'TBW': tbw,
+        'Body protein': protein,
+        'Body mineral': mineral,
+        'FFM': ffm,
+        'SMM': smm,
+        'BFM': bfm,
+        'WHR': whr,
+        'BMI': bmi,
+        'Liposuction type': type
+    }
+    
+    FEATURES = [
+        'Liposuction site', 'Edema', 'Sex', 'Age', 'Height', 'Fat volume',
+        'Weight', 'Size', 'TBW', 'Body protein', 'Body mineral', 'FFM',
+        'SMM', 'BFM', 'WHR', 'BMI', 'Liposuction type'
+    ]
+    
+    input_df = pd.DataFrame([input_dict], columns=FEATURES)
+
+    with open("model.pkl", "rb") as f:
+        model = pickle.load(f)
+
+    pred_weight, pred_size = model.predict(input_df)[0]
 
     st.markdown(
         f"""
@@ -852,8 +956,8 @@ elif st.session_state.page == "page4":
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                 <div><img src="data:image/png;base64,{check_b64}" width="60"/></div>
                 <div class="complete-text">COMPLETE</div>
-                <div class="info-box" style="margin-bottom: -5px;"><span>Postoperative weight</span><span class="value-box">0.00</span></div>
-                <div class="info-box"><span>Postoperative size</span><span class="value-box">0.00</span></div>
+                <div class="info-box" style="margin-bottom: -5px;"><span>Postoperative weight</span><span class="value-box">{pred_weight:.2f}</span></div>
+                <div class="info-box"><span>Postoperative size</span><span class="value-box">{pred_size:.2f}</span></div>
             </div>
             """,
             unsafe_allow_html=True
