@@ -118,7 +118,7 @@ if st.session_state.page == "page1":
             border-radius: 10px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
-            width: 250px;
+            width: 100px;
         }}
 
         /* 클릭 시 주황색 */
@@ -245,7 +245,6 @@ elif st.session_state.page == "page2":
         f"""
         <style>
         
-        /* 배경 */
         .stApp {{
             background-color: #F36F20;
         }}
@@ -258,7 +257,6 @@ elif st.session_state.page == "page2":
             width: 300px;
         }}
 
-        /* 헤더 숨기기 */
         header[data-testid="stHeader"] {{
             display: none;
         }}
@@ -307,13 +305,11 @@ elif st.session_state.page == "page2":
             font-size: 20px !important;
         }}
         
-        /* 좌우 컬럼 부모 */
         div[data-testid="stVerticalBlock"] > div {{
             height: 100% !important;
             display: flex !important;
         }}
         
-        /* Input box */
         input[type="number"] {{
             background-color: #FFFFFF !important;
             border-radius: 5px !important;
@@ -324,8 +320,7 @@ elif st.session_state.page == "page2":
             font-size: 20px !important;
             color: rgba(0, 0, 0, 0.7);
         }}
-        
-        /* 스핀 버튼 */
+
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {{
             -webkit-appearance: none !important;
@@ -339,10 +334,9 @@ elif st.session_state.page == "page2":
             border-radius: 10px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
-            width: 250px;
+            width: 100px;
         }}
 
-        /* 클릭 시 주황색 */
         .stButton>button:active {{
             background-color: #F36F20 !important; 
             color: white !important;
@@ -492,7 +486,7 @@ elif st.session_state.page == "page2":
             
             st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
 
-            col_back, col_next = st.columns([1, 3])
+            col_back, col_next = st.columns([1, 10])
 
             with col_back:
                 if st.button("Back", key="back_page2"):
@@ -601,7 +595,7 @@ elif st.session_state.page == "page3":
             border-radius: 10px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
-            width: 250px;
+            width: 100px;
         }}
 
         /* 클릭 시 주황색 */
@@ -697,7 +691,7 @@ elif st.session_state.page == "page3":
             
             st.markdown('<div style="display: flex; justify-content: flex-end; gap: 20px;">', unsafe_allow_html=True)
 
-            col_back, col_next = st.columns([1, 3])
+            col_back, col_next = st.columns([1, 10])
 
             with col_back:
                 if st.button("Back", key="back_page3"):
@@ -739,12 +733,10 @@ elif st.session_state.page == "page4":
         f"""
         <style>
         
-        /* 배경 */
         .stApp {{
             background-color: #F36F20;
         }}
 
-        /* 로고 */
         .custom-logo {{
             position: fixed;
             top: 30px;
@@ -752,12 +744,10 @@ elif st.session_state.page == "page4":
             width: 300px;
         }}
 
-        /* 헤더 숨기기 */
         header[data-testid="stHeader"] {{
             display: none;
         }}
         
-        /* 메인 박스 */
         section > div {{
             height: 100% !important;
             max-height: none !important;
@@ -787,7 +777,6 @@ elif st.session_state.page == "page4":
             margin: 15px auto;
             width: 400px;
             font-size: 20px;
-            font-weight: bold;
             color: rgba(0, 0, 0, 0.7);
         }}
 
@@ -795,14 +784,13 @@ elif st.session_state.page == "page4":
             background-color: #F36F20;
             color: white;
             padding: 5px 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 20px;
-            font-weight: bold;
         }}
         
         .complete-text {{
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 40px;
+            font-weight: 800;
             margin: 20px 0;
         }}
 
@@ -810,10 +798,10 @@ elif st.session_state.page == "page4":
             background-color: #E9E3E0 !important;
             color: rgba(0, 0, 0, 0.7) !important;
             border: none !important;
-            border-radius: 10px !important;
+            border-radius: 20px !important;
             cursor: pointer !important;
             transition: background-color 0.3s ease !important;
-            width: 250px;
+            width: 200px;
             margin-top: 30px;
         }}
 
@@ -832,7 +820,7 @@ elif st.session_state.page == "page4":
         st.markdown(
             f"""
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                <div><img src="data:image/png;base64,{check_b64}" width="50"/></div>
+                <div><img src="data:image/png;base64,{check_b64}" width="60"/></div>
                 <div class="complete-text">COMPLETE</div>
                 <div class="info-box" style="margin-bottom: -5px;"><span>Postoperative weight</span><span class="value-box">0.00</span></div>
                 <div class="info-box"><span>Postoperative size</span><span class="value-box">0.00</span></div>
@@ -841,7 +829,7 @@ elif st.session_state.page == "page4":
             unsafe_allow_html=True
         )
         
-        col1, col2, col3 = st.columns([1.4, 1, 1])
+        col1, col2, col3 = st.columns([1.5, 1, 1])
         with col2:
             if st.button("Back to Start"):
                 st.session_state.page = "page1"
