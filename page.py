@@ -4,6 +4,7 @@ import base64
 from streamlit.components.v1 import html
 import pickle
 import pandas as pd
+import joblib
 #streamlit run page.py
 
 if "page" not in st.session_state:
@@ -200,12 +201,14 @@ if st.session_state.page == "page1":
                     <label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Age</label>
                 """, unsafe_allow_html=True
             )
+            
+            if "age" not in st.session_state:
+                st.session_state.age = 1
 
-            age_input = st.number_input(
+            age = st.number_input(
                 label="",
                 min_value=1,
                 max_value=121,
-                value=1,
                 label_visibility="collapsed",
                 key="age"
             )
@@ -413,8 +416,8 @@ elif st.session_state.page == "page2":
                 horizontal=True,
                 label_visibility="collapsed"
             )
-            type = 0 if type_str == "Lams" else 1
-            st.session_state.type = type
+            type_ = 0 if type_str == "Lams" else 1
+            st.session_state.type = type_
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -474,7 +477,6 @@ elif st.session_state.page == "page2":
                     label="",
                     min_value=50,
                     max_value=10000,
-                    value=st.session_state.fat_volume,
                     label_visibility="collapsed",
                     key="fat_volume"
                 )
@@ -688,10 +690,10 @@ elif st.session_state.page == "page3":
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Height</div>', unsafe_allow_html=True)
-                height = st.number_input("", min_value=1, max_value=300, value=st.session_state.height, key="height", label_visibility="collapsed")
+                height = st.number_input("", min_value=1, max_value=300, key="height", label_visibility="collapsed")
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Weight</div>', unsafe_allow_html=True)
-                weight = st.number_input("", min_value=1, max_value=200, value=st.session_state.weight, key="weight", label_visibility="collapsed")
+                weight = st.number_input("", min_value=1, max_value=200, key="weight", label_visibility="collapsed")
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">BMI</div>', unsafe_allow_html=True)
 
@@ -700,6 +702,8 @@ elif st.session_state.page == "page3":
                     bmi = round(bmi, 2)
                 else:
                     bmi = 0
+                    
+                st.session_state.bmi = bmi
 
                 st.markdown(
                     f"""
@@ -713,45 +717,45 @@ elif st.session_state.page == "page3":
                 st.session_state.smm = 10.0
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Skeletal muscle mass</div>', unsafe_allow_html=True)
-                smm = st.number_input("", min_value=10.0, max_value=80.0, value=st.session_state.smm, key="smm", label_visibility="collapsed")
+                smm = st.number_input("", min_value=10.0, max_value=80.0, key="smm", label_visibility="collapsed")
                 
             if "bfm" not in st.session_state:
                 st.session_state.bfm = 5.0
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body fat mass</div>', unsafe_allow_html=True)
-                bfm = st.number_input("", min_value=5.0, max_value=80.0, value=st.session_state.bfm, key="bfm", label_visibility="collapsed")
+                bfm = st.number_input("", min_value=5.0, max_value=80.0, key="bfm", label_visibility="collapsed")
             
             if "tbw" not in st.session_state:
                 st.session_state.tbw = 25.0
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Total body water</div>', unsafe_allow_html=True)
-                tbw = st.number_input("", min_value=25.0, max_value=70.0, value=st.session_state.tbw, key="tbw", label_visibility="collapsed")
+                tbw = st.number_input("", min_value=25.0, max_value=70.0, key="tbw", label_visibility="collapsed")
                 
             col1, col2, col3 = st.columns(3)
             if "ffm" not in st.session_state:
                 st.session_state.ffm = 30.0
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Fat-free mass</div>', unsafe_allow_html=True)
-                ffm = st.number_input("", min_value=30.0, max_value=120.0, value=st.session_state.ffm, key="ffm", label_visibility="collapsed")
+                ffm = st.number_input("", min_value=30.0, max_value=120.0, key="ffm", label_visibility="collapsed")
                 
             if "protein" not in st.session_state:
                 st.session_state.protein = 5.0
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body protein</div>', unsafe_allow_html=True)
-                protein = st.number_input("", min_value=5.0, max_value=40.0, value=st.session_state.protein, key="protein", label_visibility="collapsed")
+                protein = st.number_input("", min_value=5.0, max_value=40.0, key="protein", label_visibility="collapsed")
                 
             if "mineral" not in st.session_state:
                 st.session_state.mineral = 2.0
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body mineral</div>', unsafe_allow_html=True)
-                mineral = st.number_input("", min_value=2.0, max_value=10.0, value=st.session_state.mineral, key="mineral", label_visibility="collapsed")
+                mineral = st.number_input("", min_value=2.0, max_value=10.0, key="mineral", label_visibility="collapsed")
 
             col1 = st.columns(1)[0]
             if "whr" not in st.session_state:
                 st.session_state.whr = 0.3
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Waist-hip ratio</div>', unsafe_allow_html=True)
-                whr = st.number_input("", min_value=0.3, max_value=1.5, value=st.session_state.whr, key="whr", label_visibility="collapsed")
+                whr = st.number_input("", min_value=0.3, max_value=1.5, key="whr", label_visibility="collapsed")
 
             st.markdown("</div>", unsafe_allow_html=True)
             
@@ -794,28 +798,24 @@ elif st.session_state.page == "page4":
     img_b64 = img_to_base64(img_path)
     check_b64 = img_to_base64(check_path)
     jibang2_b64 = img_to_base64(jibang2_path)
-    
-    model_path = Path("assets/chained_et_reverse.pkl")
-    with open(model_path, "rb") as f:
-        model = pickle.load(f)
 
-    gender = st.session_state.gender
-    age = st.session_state.age
-    type = st.session_state.type
-    site = st.session_state.site
-    size = st.session_state.size
-    fat_volume = st.session_state.fat_volume
-    edema = st.session_state.edema
-    height = st.session_state.height
-    weight = st.session_state.weight
-    bmi = st.session_state.bmi
-    smm = st.session_state.smm
-    bfm = st.session_state.bfm
-    tbw = st.session_state.tbw
-    ffm = st.session_state.ffm
-    protein = st.session_state.protein
-    mineral = st.session_state.mineral
-    whr = st.session_state.whr
+    gender = st.session_state.get('gender', 0)
+    age = st.session_state.get('age', 1)
+    type_ = st.session_state.get('type', 0)
+    site = st.session_state.get('site', 0)
+    size = st.session_state.get('size', 1)
+    fat_volume = st.session_state.get('fat_volume', 50)
+    edema = st.session_state.get('edema', 0)
+    height = st.session_state.get('height', 1)
+    weight = st.session_state.get('weight', 1)
+    bmi = st.session_state.get('bmi', None)
+    smm = st.session_state.get('smm', 10.0)
+    bfm = st.session_state.get('bfm', 5.0)
+    tbw = st.session_state.get('tbw', 25.0)
+    ffm = st.session_state.get('ffm', 30.0)
+    protein = st.session_state.get('protein', 5.0)
+    mineral = st.session_state.get('mineral', 2.0)
+    whr = st.session_state.get('whr', 0.3)
     
     input_dict = {
         'Liposuction site': site,
@@ -834,7 +834,7 @@ elif st.session_state.page == "page4":
         'BFM': bfm,
         'WHR': whr,
         'BMI': bmi,
-        'Liposuction type': type
+        'Liposuction type': type_
     }
     
     FEATURES = [
@@ -845,10 +845,11 @@ elif st.session_state.page == "page4":
     
     input_df = pd.DataFrame([input_dict], columns=FEATURES)
 
-    with open("model.pkl", "rb") as f:
-        model = pickle.load(f)
+    model_path = Path("assets/chained_et_reverse.pkl")
+    model = joblib.load(model_path)
 
-    pred_weight, pred_size = model.predict(input_df)[0]
+    result = model.predict(input_df)
+    pred_weight, pred_size = result[0]
 
     st.markdown(
         f"""
