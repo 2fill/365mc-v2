@@ -26,7 +26,7 @@ if st.session_state.page == "page1":
         
         /* 배경 */
         .stApp {{
-            background-color: #F36F20;
+            background: linear-gradient(296.81deg, #F4E1D6 -47.61%, #F36F20 50%);
         }}
 
         /* 로고 */
@@ -246,7 +246,7 @@ elif st.session_state.page == "page2":
         <style>
         
         .stApp {{
-            background-color: #F36F20;
+            background: linear-gradient(296.81deg, #F4E1D6 -47.61%, #F36F20 50%);
         }}
 
         /* 로고 */
@@ -526,12 +526,10 @@ elif st.session_state.page == "page3":
         f"""
         <style>
         
-        /* 배경 */
         .stApp {{
-            background-color: #F36F20;
+            background: linear-gradient(296.81deg, #F4E1D6 -47.61%, #F36F20 50%);
         }}
 
-        /* 로고 */
         .custom-logo {{
             position: fixed;
             top: 30px;
@@ -539,12 +537,10 @@ elif st.session_state.page == "page3":
             width: 300px;
         }}
 
-        /* 헤더 숨기기 */
         header[data-testid="stHeader"] {{
             display: none;
         }}
         
-        /* 메인 박스 */
         section > div {{
             height: 100% !important;
             max-height: none !important;
@@ -564,7 +560,6 @@ elif st.session_state.page == "page3":
             position: relative;
         }}
         
-        /* 좌우 컬럼 부모 */
         div[data-testid="stVerticalBlock"] > div {{
             height: 100% !important;
             display: flex !important;
@@ -581,7 +576,6 @@ elif st.session_state.page == "page3":
             color: rgba(0, 0, 0, 0.7);
         }}
         
-        /* 스핀 버튼 */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {{
             -webkit-appearance: none !important;
@@ -598,7 +592,6 @@ elif st.session_state.page == "page3":
             width: 100px;
         }}
 
-        /* 클릭 시 주황색 */
         .stButton>button:active {{
             background-color: #F36F20 !important; 
             color: white !important;
@@ -614,7 +607,7 @@ elif st.session_state.page == "page3":
         
     with st.container():
         # 좌우 박스 생성
-        left_col, right_col = st.columns([1, 3])  # 비율
+        left_col, right_col = st.columns([1, 3])
 
         with left_col:
             st.markdown('''
@@ -734,7 +727,7 @@ elif st.session_state.page == "page4":
         <style>
         
         .stApp {{
-            background-color: #F36F20;
+            background: linear-gradient(296.81deg, #F4E1D6 -47.61%, #F36F20 50%);
         }}
 
         .custom-logo {{
