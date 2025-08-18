@@ -200,7 +200,7 @@ if st.session_state.page == "page1":
             age_input = st.number_input(
                 label="",
                 min_value=1,
-                max_value=120,
+                max_value=121,
                 label_visibility="collapsed",
                 key="age"
             )
@@ -441,7 +441,7 @@ elif st.session_state.page == "page2":
                 )
                 preop_size = st.number_input(
                     label="",
-                    min_value=0,
+                    min_value=1,
                     max_value=1000,
                     label_visibility="collapsed",
                     key="preop_size"
@@ -455,8 +455,8 @@ elif st.session_state.page == "page2":
                 )
                 fat_volume = st.number_input(
                     label="",
-                    min_value=0,
-                    max_value=1000,
+                    min_value=50,
+                    max_value=10000,
                     label_visibility="collapsed",
                     key="fat_volume"
                 )
@@ -589,7 +589,7 @@ elif st.session_state.page == "page3":
         }}
         
         .stButton>button {{
-            background-color: #E9E3E0 !important;  /* 회색 */
+            background-color: #E9E3E0 !important;
             color: rgba(0, 0, 0, 0.7) !important;
             border: none !important;
             border-radius: 20px !important;
@@ -660,13 +660,25 @@ elif st.session_state.page == "page3":
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Height</div>', unsafe_allow_html=True)
-                height = st.number_input("", min_value=0, max_value=300, key="height", label_visibility="collapsed")
+                height = st.number_input("", min_value=1, max_value=300, key="height", label_visibility="collapsed")
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Weight</div>', unsafe_allow_html=True)
-                weight = st.number_input("", min_value=0, max_value=500, key="weight", label_visibility="collapsed")
+                weight = st.number_input("", min_value=1, max_value=200, key="weight", label_visibility="collapsed")
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">BMI</div>', unsafe_allow_html=True)
-                bmi = st.number_input("", min_value=0.0, max_value=100.0, key="bmi", label_visibility="collapsed")
+
+                if height > 0:
+                    bmi_value = weight / ((height / 100) ** 2)
+                    bmi_value = round(bmi_value, 2)
+                else:
+                    bmi_value = 0
+
+                st.markdown(
+                    f"""
+                    <div style="background-color: #E9E3E0; color: rgba(0, 0, 0, 0.7); border: none; border-radius: 20px; width: 100px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 500;">{bmi_value}</div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
             col1, col2, col3 = st.columns(3)
             with col1:
