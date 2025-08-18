@@ -8,9 +8,8 @@ if "page" not in st.session_state:
     st.session_state.page = "page1"
 
 if st.session_state.page == "page1":
-    # 로고
     img_path = Path("assets/Logo.png")
-    print(img_path.exists())
+    jibang_path = Path("assets/Jibang-1.png")
 
     def img_to_base64(img_path):
         with open(img_path, "rb") as img_file:
@@ -18,6 +17,7 @@ if st.session_state.page == "page1":
         return b64_str
 
     img_b64 = img_to_base64(img_path)
+    jibang_b64 = img_to_base64(jibang_path)
 
     # 마크다운
     st.markdown(
@@ -119,11 +119,17 @@ if st.session_state.page == "page1":
             color: white !important;
         }}
         
+        .custom-jibang {{
+            position: absolute;
+            top: -130px;
+            right: 20px;
+            width: 170px;
+            z-index: 10;
+        }}
         </style>
-
-
-
+        
         <img src="data:image/png;base64,{img_b64}" class="custom-logo" />
+        <img src="data:image/png;base64,{jibang_b64}" class="custom-jibang" />
         """,
         unsafe_allow_html=True
     )
@@ -221,6 +227,8 @@ if st.session_state.page == "page1":
 
 elif st.session_state.page == "page2":
     img_path = Path("assets/Logo.png")
+    checkbox_path = Path("assets/CheckBox.png")
+    jibang_path = Path("assets/Jibang-1.png")
 
     def img_to_base64(img_path):
         with open(img_path, "rb") as img_file:
@@ -231,6 +239,7 @@ elif st.session_state.page == "page2":
     
     checkbox_path = Path("assets/CheckBox.png") 
     checkbox_b64 = img_to_base64(checkbox_path)
+    jibang_b64 = img_to_base64(jibang_path)
 
     st.markdown(
         f"""
@@ -336,11 +345,17 @@ elif st.session_state.page == "page2":
             margin-bottom: -20px !important;
         }}
         
+        .custom-jibang {{
+            position: absolute;
+            top: -130px;
+            right: 20px;
+            width: 170px;
+            z-index: 10;
+        }}
         </style>
 
-
-
         <img src="data:image/png;base64,{img_b64}" class="custom-logo" />
+        <img src="data:image/png;base64,{jibang_b64}" class="custom-jibang" />
         """,
         unsafe_allow_html=True
         )
@@ -499,7 +514,8 @@ elif st.session_state.page == "page2":
 
 elif st.session_state.page == "page3":
     img_path = Path("assets/Logo.png")
-    print(img_path.exists())
+    checkbox_path = Path("assets/CheckBox.png")
+    jibang_path = Path("assets/Jibang-1.png")
 
     def img_to_base64(img_path):
         with open(img_path, "rb") as img_file:
@@ -510,6 +526,7 @@ elif st.session_state.page == "page3":
     
     checkbox_path = Path("assets/CheckBox.png") 
     checkbox_b64 = img_to_base64(checkbox_path)
+    jibang_b64 = img_to_base64(jibang_path)
 
     st.markdown(
         f"""
@@ -584,12 +601,19 @@ elif st.session_state.page == "page3":
         .stButton>button:active {{
             background-color: #F36F20 !important; 
             color: white !important;
+        }}
+        
+        .custom-jibang {{
+            position: absolute;
+            top: -130px;
+            right: 20px;
+            width: 170px;
+            z-index: 10;
         }}     
         </style>
 
-
-
         <img src="data:image/png;base64,{img_b64}" class="custom-logo" />
+        <img src="data:image/png;base64,{jibang_b64}" class="custom-jibang" />
         """,
         unsafe_allow_html=True
         )
