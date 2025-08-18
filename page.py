@@ -1,6 +1,7 @@
 import streamlit as st
 from pathlib import Path
 import base64
+from streamlit.components.v1 import html
 #streamlit run page.py
 
 if "page" not in st.session_state:
@@ -170,7 +171,7 @@ if st.session_state.page == "page1":
         with right_col:
             st.markdown(
             """
-            <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; margin: 0; padding: 0; position: relative;">
+            <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
             """, unsafe_allow_html=True)
             
             st.markdown(
@@ -191,8 +192,8 @@ if st.session_state.page == "page1":
             
             st.markdown(
                 """
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <label style="font-weight: 600; font-size: 24px;">Age</label>
+                <div style="display: flex; align-items: center;">
+                    <label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Age</label>
                 """, unsafe_allow_html=True
             )
 
@@ -437,9 +438,9 @@ elif st.session_state.page == "page2":
 
             with col1:
                 st.markdown(
-                    """
-                    <label style="font-weight: 600; font-size: 24px;">Preoperative size</label>
-                    """, unsafe_allow_html=True
+                    '<div style="display: flex; align-items: center;">'
+                    '<label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Preoperative size</label>', 
+                    unsafe_allow_html=True
                 )
                 preop_size = st.number_input(
                     label="",
@@ -451,9 +452,9 @@ elif st.session_state.page == "page2":
 
             with col2:
                 st.markdown(
-                    """
-                    <label style="font-weight: 600; font-size: 24px;">Fat volume</label>
-                    """, unsafe_allow_html=True
+                    '<div style="display: flex; align-items: center;">'
+                    '<label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Fat volume</label>',
+                    unsafe_allow_html=True
                 )
                 fat_volume = st.number_input(
                     label="",
@@ -491,12 +492,12 @@ elif st.session_state.page == "page2":
             
             st.markdown('<div style="display: flex; justify-content: flex-end;">', unsafe_allow_html=True)
 
-            col_back, col_next = st.columns([1, 1])
+            col_back, col_next = st.columns([1, 3])
 
             with col_back:
                 if st.button("Back", key="back_page2"):
                     st.session_state.page = "page1"
-
+                    st.rerun()
             with col_next:
                 if st.button("Next", key="next_page2"):
                     st.session_state.page = "page3"
@@ -607,8 +608,7 @@ elif st.session_state.page == "page3":
         .stButton>button:active {{
             background-color: #F36F20 !important; 
             color: white !important;
-        }}
-        
+        }}     
         </style>
 
 
@@ -660,42 +660,49 @@ elif st.session_state.page == "page3":
 
             col1, col2, col3 = st.columns(3)
             with col1:
-                height = st.number_input("Height", min_value=0, max_value=300, key="height")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Height</div>', unsafe_allow_html=True)
+                height = st.number_input("", min_value=0, max_value=300, key="height", label_visibility="collapsed")
             with col2:
-                weight = st.number_input("Weight", min_value=0, max_value=500, key="weight")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Weight</div>', unsafe_allow_html=True)
+                weight = st.number_input("", min_value=0, max_value=500, key="weight", label_visibility="collapsed")
             with col3:
-                bmi = st.number_input("BMI", min_value=0.0, max_value=100.0, key="bmi")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">BMI</div>', unsafe_allow_html=True)
+                bmi = st.number_input("", min_value=0.0, max_value=100.0, key="bmi", label_visibility="collapsed")
 
             col1, col2, col3 = st.columns(3)
             with col1:
-                smm = st.number_input("Skeletal muscle mass", min_value=0.0, max_value=200.0, key="smm")
+                st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Skeletal muscle mass</div>', unsafe_allow_html=True)
+                smm = st.number_input("", min_value=0.0, max_value=200.0, key="smm", label_visibility="collapsed")
             with col2:
-                bfm = st.number_input("Body fat mass", min_value=0.0, max_value=200.0, key="bfm")
-            with col3:
-                tbw = st.number_input("Total body water", min_value=0.0, max_value=200.0, key="tbw")
+                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body fat mass</div>', unsafe_allow_html=True)
+                tbw = st.number_input("", min_value=0.0, max_value=200.0, key="tbw", label_visibility="collapsed")
 
             col1, col2, col3 = st.columns(3)
             with col1:
-                ffm = st.number_input("Fat-free mass", min_value=0.0, max_value=200.0, key="ffm")
+                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Fat-free mass</div>', unsafe_allow_html=True)
+                ffm = st.number_input("", min_value=0.0, max_value=200.0, key="ffm", label_visibility="collapsed")
             with col2:
-                bp = st.number_input("Body protein", min_value=0.0, max_value=200.0, key="bp")
+                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body protein</div>', unsafe_allow_html=True)
+                bp = st.number_input("", min_value=0.0, max_value=200.0, key="bp", label_visibility="collapsed")
             with col3:
-                bm = st.number_input("Body mineral", min_value=0.0, max_value=200.0, key="bm")
+                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Body mineral</div>', unsafe_allow_html=True)
+                bm = st.number_input("", min_value=0.0, max_value=200.0, key="bm", label_visibility="collapsed")
 
             col1 = st.columns(1)[0]
             with col1:
-                whr = st.number_input("Waist-hip ratio", min_value=0.0, max_value=5.0, key="whr")
+                st.markdown('<div style="font-weight:600; font-size:24px; margin-bottom:5px;">Waist-hip ratio</div>', unsafe_allow_html=True)
+                whr = st.number_input("", min_value=0.0, max_value=5.0, key="whr", label_visibility="collapsed")
 
             st.markdown("</div>", unsafe_allow_html=True)
             
             st.markdown('<div style="display: flex; justify-content: flex-end; gap: 20px;">', unsafe_allow_html=True)
 
-            col_back, col_next = st.columns([1, 1])
+            col_back, col_next = st.columns([1, 3])
 
             with col_back:
                 if st.button("Back", key="back_page3"):
                     st.session_state.page = "page2"
-
+                    st.rerun()
             with col_next:
                 if st.button("Complete", key="next_page3"):
                     st.session_state.page = "page4"
