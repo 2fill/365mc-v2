@@ -229,9 +229,7 @@ if st.session_state.page == "page1":
 
 
 elif st.session_state.page == "page2":
-    # 로고
     img_path = Path("assets/Logo.png")
-    print(img_path.exists())
 
     def img_to_base64(img_path):
         with open(img_path, "rb") as img_file:
@@ -239,6 +237,9 @@ elif st.session_state.page == "page2":
         return b64_str
 
     img_b64 = img_to_base64(img_path)
+    
+    checkbox_path = Path("assets/CheckBox.png") 
+    checkbox_b64 = img_to_base64(checkbox_path)
 
     # 마크다운
     st.markdown(
@@ -361,10 +362,10 @@ elif st.session_state.page == "page2":
         left_col, right_col = st.columns([1, 3])  # 비율
 
         with left_col:
-            st.markdown('''
+            st.markdown(f'''
             <div style="position: relative; background-color: #FFF3EB; min-height: 60vh; border-radius: 8px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; font-size: 25px; font-weight: bold; color: rgba(0, 0, 0, 0.7); padding: 0; gap: 20px; margin-right: 70px;">
                 <div style="display: flex; align-items: center;">
-                    <div style="background-color: #F36F20; color: FFFFFF; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">✔️</div>
+                    <img src="data:image/png;base64,{checkbox_b64}" width="40" height="40" style="margin: 50px 15px 50px 20px;"/>
                     <span style="color: rgba(0, 0, 0, 0.7);">Liposuction Information</span>
                 </div>
                 <div style="position: absolute; top: 138px; left: 40px; width: 3px; height: 110px; background-color: #F36F20;"></div>
@@ -520,6 +521,9 @@ elif st.session_state.page == "page3":
         return b64_str
 
     img_b64 = img_to_base64(img_path)
+    
+    checkbox_path = Path("assets/CheckBox.png") 
+    checkbox_b64 = img_to_base64(checkbox_path)
 
     # 마크다운
     st.markdown(
@@ -610,15 +614,15 @@ elif st.session_state.page == "page3":
         left_col, right_col = st.columns([1, 3])
 
         with left_col:
-            st.markdown('''
+            st.markdown(f'''
             <div style="position: relative; background-color: #FFF3EB; min-height: 60vh; border-radius: 8px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; font-size: 25px; font-weight: bold; color: rgba(0, 0, 0, 0.7); padding: 0; gap: 20px; margin-right: 70px;">
                 <div style="display: flex; align-items: center;">
-                    <div style="background-color: #F36F20; color: FFFFFF; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">✔️</div>
+                    <img src="data:image/png;base64,{checkbox_b64}" width="40" height="40" style="margin: 50px 15px 50px 20px;"/>
                     <span style="color: rgba(0, 0, 0, 0.7);">Liposuction Information</span>
                 </div>
                 <div style="position: absolute; top: 138px; left: 40px; width: 3px; height: 110px; background-color: #F36F20;"></div>
                 <div style="display: flex; align-items: center;">
-                    <div style="background-color: #F36F20; color: rgba(0, 0, 0, 0.7); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin: 50px 15px 50px 20px; flex-shrink: 0;">✔️</div>
+                    <img src="data:image/png;base64,{checkbox_b64}" width="40" height="40" style="margin: 50px 15px 50px 20px;"/>
                     <span style="color: rgba(0, 0, 0, 0.7);">Liposuction Information</span>
                 </div>
                 <div style="position: absolute; top: 298px; left: 40px; width: 3px; height: 110px; background-color: #F36F20;"></div>
