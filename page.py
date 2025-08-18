@@ -722,8 +722,8 @@ elif st.session_state.page == "page3":
 
 elif st.session_state.page == "page4":
     img_path = Path("assets/Logo.png")
-    check_img_path = Path("assets/check.png")
-    print(img_path.exists())
+    check_path = Path("assets/check.png")
+    jibang2_path = Path("assets/Jibang-2.png")
 
     def img_to_base64(img_path):
         with open(img_path, "rb") as img_file:
@@ -731,7 +731,8 @@ elif st.session_state.page == "page4":
         return b64_str
 
     img_b64 = img_to_base64(img_path)
-    check_b64 = img_to_base64(check_img_path)
+    check_b64 = img_to_base64(check_path)
+    jibang2_b64 = img_to_base64(jibang2_path)
 
     st.markdown(
         f"""
@@ -817,9 +818,18 @@ elif st.session_state.page == "page4":
             background-color: #F36F20 !important;
             color: white !important;
         }}
+        
+        .custom-jibang {{
+            position: absolute;
+            bottom: -600px;
+            right: -150px;
+            width: 350px;
+            z-index: 10;
+        }}     
         </style>
 
         <img src="data:image/png;base64,{img_b64}" class="custom-logo" />
+        <img src="data:image/png;base64,{jibang2_b64}" class="custom-jibang" />
         """,
         unsafe_allow_html=True
         )
