@@ -3,6 +3,7 @@ from pathlib import Path
 import base64
 import pandas as pd
 import joblib
+import gdown
 #streamlit run page.py
 
 if "page" not in st.session_state:
@@ -843,8 +844,14 @@ elif st.session_state.page == "page4":
     
     input_df = pd.DataFrame([input_dict], columns=FEATURES)
 
-    model_path = Path("assets/chained_et_reverse.pkl")
-    model = joblib.load(model_path)
+    @st.cache_resource
+    def load_model():
+        file_id = "1ytC-ErD43EkZuFWJqr3oEHWSOdcE92_M"
+        url = f"https://drive.google.com/uc?id={file_id}"
+        output = "chained_et_reverse.pkl"
+        gdown.download(url, output, quiet=False)
+        return joblib.load(output)
+    model = load_model()
 
     result = model.predict(input_df)
     pred_weight, pred_size = result[0]
