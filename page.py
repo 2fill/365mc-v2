@@ -181,15 +181,15 @@ if st.session_state.page == "page1":
             )
             
             if "gender" not in st.session_state:
-                st.session_state.gender = 0
+                st.session_state.gender = 1
             gender_str = st.radio(
                 label="",
                 options=["Male", "Female"],
-                index=st.session_state.gender,
+                index=st.session_state.gender-1,
                 horizontal=True,
                 label_visibility="collapsed"
             )
-            gender = 0 if gender_str == "Male" else 1
+            gender = 1 if gender_str == "Male" else 2
             st.session_state.gender = gender
             
             st.markdown("</div>", unsafe_allow_html=True)
@@ -206,8 +206,8 @@ if st.session_state.page == "page1":
 
             age = st.number_input(
                 label="",
-                min_value=1,
-                max_value=121,
+                # min_value=-2,
+                # max_value=8,
                 label_visibility="collapsed",
                 key="age"
             )
@@ -427,16 +427,16 @@ elif st.session_state.page == "page2":
                 """, unsafe_allow_html=True
             )
             if "site" not in st.session_state:
-                st.session_state.site = 0
+                st.session_state.site = 1
             site_options = ["Abdomen", "Arms", "Backs", "Buttocks", "Calves", "Flanks", "Thighs"]
             site_str = st.radio(
                 label="",
                 options=site_options,
-                index=st.session_state.site,
+                index=st.session_state.site-1,
                 horizontal=True,
                 label_visibility="collapsed"
             )
-            st.session_state.site = site_options.index(site_str)
+            st.session_state.site = site_options.index(site_str)+1
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -458,8 +458,8 @@ elif st.session_state.page == "page2":
                     st.session_state.size = 1
                 preop_size = st.number_input(
                     label="",
-                    min_value=1,
-                    max_value=1000,
+                    # min_value=-2,
+                    # max_value=8,
                     label_visibility="collapsed",
                     key="size"
                 )
@@ -474,8 +474,8 @@ elif st.session_state.page == "page2":
                     st.session_state.fat_volume = 50
                 fat_volume = st.number_input(
                     label="",
-                    min_value=50,
-                    max_value=10000,
+                    # min_value=-2,
+                    # max_value=8,
                     label_visibility="collapsed",
                     key="fat_volume"
                 )
@@ -493,15 +493,15 @@ elif st.session_state.page == "page2":
             
             edema_options = ["No edema", "Mild edema", "Moderate to severe edema"]
             if "edema" not in st.session_state:
-                st.session_state.edema = 0
+                st.session_state.edema = 1
             edema_str = st.radio(
                 label="",
                 options=["No edema", "Mild edema", "Moderate to severe edema"],
-                index=st.session_state.edema,
+                index=st.session_state.edema-1,
                 horizontal=True,
                 label_visibility="collapsed"
             )
-            st.session_state.edema = edema_options.index(edema_str)
+            st.session_state.edema = edema_options.index(edema_str)+1
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -689,10 +689,12 @@ elif st.session_state.page == "page3":
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Height</div>', unsafe_allow_html=True)
-                height = st.number_input("", min_value=1, max_value=300, key="height", label_visibility="collapsed")
+                # height = st.number_input("", min_value=-2, max_value=8, key="height", label_visibility="collapsed")
+                height = st.number_input("", key="height", label_visibility="collapsed")
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Weight</div>', unsafe_allow_html=True)
-                weight = st.number_input("", min_value=1, max_value=200, key="weight", label_visibility="collapsed")
+                # weight = st.number_input("", min_value=-2, max_value=8, key="weight", label_visibility="collapsed")
+                weight = st.number_input("", key="weight", label_visibility="collapsed")
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">BMI</div>', unsafe_allow_html=True)
 
@@ -703,6 +705,7 @@ elif st.session_state.page == "page3":
                     bmi = 0
                     
                 st.session_state.bmi = bmi
+
 
                 st.markdown(
                     f"""
@@ -716,45 +719,52 @@ elif st.session_state.page == "page3":
                 st.session_state.smm = 10.0
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Skeletal muscle mass</div>', unsafe_allow_html=True)
-                smm = st.number_input("", min_value=10.0, max_value=80.0, key="smm", label_visibility="collapsed")
+                # smm = st.number_input("", min_value=-2, max_value=8, key="smm", label_visibility="collapsed")
+                smm = st.number_input("", key="smm", label_visibility="collapsed")
                 
             if "bfm" not in st.session_state:
                 st.session_state.bfm = 5.0
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body fat mass</div>', unsafe_allow_html=True)
-                bfm = st.number_input("", min_value=5.0, max_value=80.0, key="bfm", label_visibility="collapsed")
+                # bfm = st.number_input("", min_value=-2, max_value=8, key="bfm", label_visibility="collapsed")
+                bfm = st.number_input("", key="bfm", label_visibility="collapsed")
             
             if "tbw" not in st.session_state:
                 st.session_state.tbw = 25.0
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Total body water</div>', unsafe_allow_html=True)
-                tbw = st.number_input("", min_value=25.0, max_value=70.0, key="tbw", label_visibility="collapsed")
+                # tbw = st.number_input("", min_value=-2, max_value=8, key="tbw", label_visibility="collapsed")
+                tbw = st.number_input("", key="tbw", label_visibility="collapsed")
                 
             col1, col2, col3 = st.columns(3)
             if "ffm" not in st.session_state:
                 st.session_state.ffm = 30.0
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Fat-free mass</div>', unsafe_allow_html=True)
-                ffm = st.number_input("", min_value=30.0, max_value=120.0, key="ffm", label_visibility="collapsed")
+                # ffm = st.number_input("", min_value=-2, max_value=8, key="ffm", label_visibility="collapsed")
+                ffm = st.number_input("", key="ffm", label_visibility="collapsed")
                 
             if "protein" not in st.session_state:
                 st.session_state.protein = 5.0
             with col2:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body protein</div>', unsafe_allow_html=True)
-                protein = st.number_input("", min_value=5.0, max_value=40.0, key="protein", label_visibility="collapsed")
+                # protein = st.number_input("", min_value=-2, max_value=8, key="protein", label_visibility="collapsed")
+                protein = st.number_input("", key="protein", label_visibility="collapsed")
                 
             if "mineral" not in st.session_state:
                 st.session_state.mineral = 2.0
             with col3:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Body mineral</div>', unsafe_allow_html=True)
-                mineral = st.number_input("", min_value=2.0, max_value=10.0, key="mineral", label_visibility="collapsed")
+                # mineral = st.number_input("", min_value=-2, max_value=8, key="mineral", label_visibility="collapsed")
+                mineral = st.number_input("", key="mineral", label_visibility="collapsed")
 
             col1 = st.columns(1)[0]
             if "whr" not in st.session_state:
                 st.session_state.whr = 0.3
             with col1:
                 st.markdown('<div style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Waist-hip ratio</div>', unsafe_allow_html=True)
-                whr = st.number_input("", min_value=0.3, max_value=1.5, key="whr", label_visibility="collapsed")
+                # whr = st.number_input("", min_value=-2, max_value=8, key="whr", label_visibility="collapsed")
+                whr = st.number_input("", key="whr", label_visibility="collapsed")
 
             st.markdown("</div>", unsafe_allow_html=True)
             
@@ -775,15 +785,6 @@ elif st.session_state.page == "page3":
             st.markdown('</div>', unsafe_allow_html=True)
 
 
-
-
-
-
-
-
-
-
-
 elif st.session_state.page == "page4":
     img_path = Path("assets/Logo.png")
     check_path = Path("assets/check.png")
@@ -798,13 +799,13 @@ elif st.session_state.page == "page4":
     check_b64 = img_to_base64(check_path)
     jibang2_b64 = img_to_base64(jibang2_path)
 
-    gender = st.session_state.get('gender', 0)
+    gender = st.session_state.get('gender', 1)
     age = st.session_state.get('age', 1)
     type_ = st.session_state.get('type', 0)
-    site = st.session_state.get('site', 0)
+    site = st.session_state.get('site', 1)
     size = st.session_state.get('size', 1)
     fat_volume = st.session_state.get('fat_volume', 50)
-    edema = st.session_state.get('edema', 0)
+    edema = st.session_state.get('edema', 1)
     height = st.session_state.get('height', 1)
     weight = st.session_state.get('weight', 1)
     bmi = st.session_state.get('bmi', None)
@@ -844,17 +845,33 @@ elif st.session_state.page == "page4":
     
     input_df = pd.DataFrame([input_dict], columns=FEATURES)
 
+    # ---------- load bundle (model + scaler + metadata) ----------
     @st.cache_resource
-    def load_model():
-        file_id = "1ytC-ErD43EkZuFWJqr3oEHWSOdcE92_M"
+    def load_bundle():
+        file_id = "1fzGAVUv3eRaQSEjDS7V-PFs-zDSL1sqb"
         url = f"https://drive.google.com/uc?id={file_id}"
-        output = "chained_et_reverse.pkl"
+        output = "chained_et_reverse_included.pkl"
         gdown.download(url, output, quiet=False)
         return joblib.load(output)
-    model = load_model()
+    
+    
+    bundle = load_bundle()
+    model = bundle["model"]
+    scaler = bundle["scaler"]
+    feature_cols = bundle["feature_cols"]
+    scaled_cols = bundle["scaled_cols"]
+    target_names = bundle["target_names"]
+    order = bundle["order"]
 
-    result = model.predict(input_df)
-    pred_weight, pred_size = result[0]
+    X = input_df.reindex(columns=feature_cols).copy()
+    for c in X.columns:
+        X[c] = pd.to_numeric(X[c], errors="coerce")
+
+    X.loc[:, scaled_cols] = scaler.transform(X[scaled_cols])
+
+    y_pred = model.predict(X.values)
+    pred_weight = float(y_pred[0][0]) 
+    pred_size = float(y_pred[0][1])  
 
     st.markdown(
         f"""
