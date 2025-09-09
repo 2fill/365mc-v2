@@ -832,25 +832,29 @@ elif st.session_state.page == "page4":
 
     @st.cache_resource
     def load_bundle():
-        output = "ch_et_rev.pkl"
+        output = "ch_et_rev_2.pkl"
         return joblib.load(output)
     
     bundle = load_bundle()
     model = bundle["model"]
-    scaler = bundle["scaler"]
+    scaler_x = bundle["scaler_x"]           
+    scaled_cols_x = bundle["scaled_cols_x"]   
+    scaler_y = bundle["scaler_y"]             
+    scaled_cols_y = bundle["scaled_cols_y"]    
     feature_cols = bundle["feature_cols"]
-    scaled_cols = bundle["scaled_cols"]
     target_names = bundle["target_names"]
 
     X = input_df.reindex(columns=feature_cols).copy()
     for c in X.columns:
         X[c] = pd.to_numeric(X[c], errors="coerce")
 
-    X.loc[:, scaled_cols] = scaler.transform(X[scaled_cols])
+    X.loc[:, scaled_cols_x] = scaler_x.transform(X[scaled_cols_x])
 
-    y_pred = model.predict(X.values)
+    y_pred_scaled = model.predict(X.values)
+    y_pred = scaler_y.inverse_transform(y_pred_scaled)
     
-    pred_dict = {name: float(y_pred[0][i]) for i, name in enumerate([target_names[i] for i in model.order_])}
+    pred_dict = {scaled_cols_y[i]: float(y_pred[0][i]) 
+             for i in range(len(scaled_cols_y))}
     
     pred_weight = pred_dict['af_weight']
     pred_size = pred_dict['af_size']
