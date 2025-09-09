@@ -830,15 +830,10 @@ elif st.session_state.page == "page4":
     
     input_df = pd.DataFrame([input_dict], columns=FEATURES)
 
-    # ---------- load bundle (model + scaler + metadata) ----------
     @st.cache_resource
     def load_bundle():
-        file_id = "1fzGAVUv3eRaQSEjDS7V-PFs-zDSL1sqb"
-        url = f"https://drive.google.com/uc?id={file_id}"
-        output = "chained_et_reverse_included.pkl"
-        gdown.download(url, output, quiet=False)
+        output = "ch_et_rev.pkl"
         return joblib.load(output)
-    
     
     bundle = load_bundle()
     model = bundle["model"]
@@ -846,7 +841,6 @@ elif st.session_state.page == "page4":
     feature_cols = bundle["feature_cols"]
     scaled_cols = bundle["scaled_cols"]
     target_names = bundle["target_names"]
-    order = bundle["order"]
 
     X = input_df.reindex(columns=feature_cols).copy()
     for c in X.columns:
@@ -855,8 +849,11 @@ elif st.session_state.page == "page4":
     X.loc[:, scaled_cols] = scaler.transform(X[scaled_cols])
 
     y_pred = model.predict(X.values)
-    pred_weight = float(y_pred[0][0]) 
-    pred_size = float(y_pred[0][1])  
+    
+    pred_dict = {name: float(y_pred[0][i]) for i, name in enumerate([target_names[i] for i in model.order_])}
+    
+    pred_weight = pred_dict['af_weight']
+    pred_size = pred_dict['af_size']
 
     st.markdown(
         f"""
