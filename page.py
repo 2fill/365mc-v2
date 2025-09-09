@@ -6,6 +6,8 @@ import joblib
 import gdown
 #streamlit run page.py
 
+###########################
+# Page 1
 if "page" not in st.session_state:
     st.session_state.page = "page1"
 
@@ -136,10 +138,6 @@ if st.session_state.page == "page1":
         unsafe_allow_html=True
     )
 
-
-
-
-
     with st.container():
         left_col, right_col = st.columns([1, 3])  
 
@@ -162,10 +160,6 @@ if st.session_state.page == "page1":
                 </div>
             </div>
             ''', unsafe_allow_html=True)
-
-
-
-
 
         with right_col:
             st.markdown(
@@ -227,11 +221,8 @@ if st.session_state.page == "page1":
 
 
 
-
-
-
-
-
+###########################
+# Page 2
 elif st.session_state.page == "page2":
     img_path = Path("assets/Logo.png")
     checkbox_path = Path("assets/CheckBox.png")
@@ -390,10 +381,6 @@ elif st.session_state.page == "page2":
             </div>
             ''', unsafe_allow_html=True)
 
-
-
-
-
         with right_col:
             st.markdown(
             """
@@ -531,11 +518,8 @@ elif st.session_state.page == "page2":
 
 
 
-
-
-
-
-
+###########################
+# Page 3
 elif st.session_state.page == "page3":
     img_path = Path("assets/Logo.png")
     checkbox_path = Path("assets/CheckBox.png")
@@ -665,10 +649,6 @@ elif st.session_state.page == "page3":
             </div>
             ''', unsafe_allow_html=True)
 
-
-
-
-
         with right_col:
             st.markdown(
             """
@@ -785,6 +765,11 @@ elif st.session_state.page == "page3":
             st.markdown('</div>', unsafe_allow_html=True)
 
 
+
+
+
+###########################
+# Page 4
 elif st.session_state.page == "page4":
     img_path = Path("assets/Logo.png")
     check_path = Path("assets/check.png")
