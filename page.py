@@ -451,44 +451,9 @@ elif st.session_state.page == "page2":
                     key="size"
                 )
 
-            with col2:
-                st.markdown(
-                    '<div style="display: flex; align-items: center;">'
-                    '<label style="font-weight: 600; font-size: 24px; margin-bottom: 5px;">Fat volume</label>',
-                    unsafe_allow_html=True
-                )
-                if "fat_volume" not in st.session_state:
-                    st.session_state.fat_volume = 50
-                fat_volume = st.number_input(
-                    label="",
-                    # min_value=-2,
-                    # max_value=8,
-                    label_visibility="collapsed",
-                    key="fat_volume"
-                )
-
             st.markdown("</div>", unsafe_allow_html=True)
             
             st.markdown('<div style="flex-grow: 1;"></div>', unsafe_allow_html=True)
-
-            st.markdown(
-                """
-                <div style="display: flex; align-items: center;">
-                    <label style="font-weight: 600; font-size: 24px;">Edema</label>
-                """, unsafe_allow_html=True
-            )
-            
-            edema_options = ["No edema", "Mild edema", "Moderate to severe edema"]
-            if "edema" not in st.session_state:
-                st.session_state.edema = 1
-            edema_str = st.radio(
-                label="",
-                options=["No edema", "Mild edema", "Moderate to severe edema"],
-                index=st.session_state.edema-1,
-                horizontal=True,
-                label_visibility="collapsed"
-            )
-            st.session_state.edema = edema_options.index(edema_str)+1
             
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -789,8 +754,6 @@ elif st.session_state.page == "page4":
     type_ = st.session_state.get('type', 0)
     site = st.session_state.get('site', 1)
     size = st.session_state.get('size', 1)
-    fat_volume = st.session_state.get('fat_volume', 50)
-    edema = st.session_state.get('edema', 1)
     height = st.session_state.get('height', 1)
     weight = st.session_state.get('weight', 1)
     bmi = st.session_state.get('bmi', None)
@@ -804,11 +767,9 @@ elif st.session_state.page == "page4":
     
     input_dict = {
         'Liposuction site': site,
-        'Edema': edema,
         'Sex': gender,
         'Age': age,
         'Height': height,
-        'Fat volume': fat_volume,
         'Weight': weight,
         'Size': size,
         'TBW': tbw,
@@ -823,8 +784,8 @@ elif st.session_state.page == "page4":
     }
     
     FEATURES = [
-        'Liposuction site', 'Edema', 'Sex', 'Age', 'Height', 'Fat volume',
-        'Weight', 'Size', 'TBW', 'Body protein', 'Body mineral', 'FFM',
+        'Liposuction site', 'Sex', 'Age', 'Height', 'Weight',
+        'Size', 'TBW', 'Body protein', 'Body mineral', 'FFM',
         'SMM', 'BFM', 'WHR', 'BMI', 'Liposuction type'
     ]
     
@@ -832,29 +793,28 @@ elif st.session_state.page == "page4":
 
     @st.cache_resource
     def load_bundle():
-        output = "ch_et_rev_2.pkl"
+        output = "chained_et_final.pkl"
         return joblib.load(output)
     
     bundle = load_bundle()
     model = bundle["model"]
-    scaler_x = bundle["scaler_x"]           
-    scaled_cols_x = bundle["scaled_cols_x"]   
-    scaler_y = bundle["scaler_y"]             
-    scaled_cols_y = bundle["scaled_cols_y"]    
+    scaler = bundle["scaler"]
     feature_cols = bundle["feature_cols"]
+    scaled_cols = bundle["scaled_cols"]
     target_names = bundle["target_names"]
 
     X = input_df.reindex(columns=feature_cols).copy()
     for c in X.columns:
         X[c] = pd.to_numeric(X[c], errors="coerce")
 
-    X.loc[:, scaled_cols_x] = scaler_x.transform(X[scaled_cols_x])
+    X.loc[:, scaled_cols] = scaler.transform(X[scaled_cols])
 
-    y_pred_scaled = model.predict(X.values)
-    y_pred = scaler_y.inverse_transform(y_pred_scaled)
-    
-    pred_dict = {scaled_cols_y[i]: float(y_pred[0][i]) 
-             for i in range(len(scaled_cols_y))}
+    y_pred = model.predict(X)
+
+    pred_dict = {
+        target_names[i]: float(y_pred[0][i])
+        for i in range(len(target_names))
+    }
     
     pred_weight = pred_dict['af_weight']
     pred_size = pred_dict['af_size']
