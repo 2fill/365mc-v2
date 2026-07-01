@@ -1,4 +1,4 @@
-# 365mc multi-output ML-based CDSS
+# 365MC Multi-output ML-based CDSS
 
 A machine learning-based clinical decision support system (CDSS) for predicting postoperative liposuction outcomes.
 
@@ -6,7 +6,7 @@ This repository contains a multi-output prediction pipeline and a Streamlit-base
 
 ---
 
-## Overview
+## 🎇 Overview
 
 The final deployed model is a **chained Extra Trees regressor** designed for **multi-output prediction** of postoperative liposuction outcomes.
 
@@ -24,14 +24,13 @@ The repository includes:
 
 ---
 
-## Representative Model Performance
+## 📊 Representative Model Performance 
 
 The representative final model was a **chained Extra Trees regressor**, which showed strong predictive performance for postoperative outcome prediction.
 
 | Model | Prediction Task | R² | RMSE | MAE | MAPE |
 |------|------------------|----|------|-----|------|
 | Chained Extra Trees | Postoperative outcome prediction | **0.980** | **2.356** | **1.242** | **2.199** |
-
 
 ---
 
@@ -59,10 +58,10 @@ The model was developed using a de-identified multicenter liposuction cohort fro
 | Source | 365MC multicenter liposuction registry |
 | Study period | 2024 |
 | Clinical sites | 20 obesity specialty clinics |
-| Final cohort | 7804 eligible individuals |
-| Modeling task | multi-output regression |
-| Input type | preoperative demographic, surgical, anthropometric, and body composition variables |
-| Output targets | postoperative body weight and postoperative circumferential size |
+| Final cohort | 7,804 eligible individuals |
+| Modeling task | Multi-output regression |
+| Input type | Preoperative demographic, surgical, anthropometric, and body composition variables |
+| Output targets | Postoperative body weight and postoperative circumferential size |
 
 ---
 
@@ -72,10 +71,10 @@ The final model uses 15 preoperative predictors.
 
 | Category | Input variables |
 |----------|-----------------|
-| Demographics | sex, age |
-| Anthropometrics | height, preoperative body weight, BMI, preoperative circumferential size |
-| Surgical information | liposuction technique, liposuction site |
-| Body composition | skeletal muscle mass, body fat mass, total body water, fat-free mass, body protein, body mineral content, waist-to-hip ratio |
+| Demographics | Sex, age |
+| Anthropometrics | Height, preoperative body weight, BMI, preoperative circumferential size |
+| Surgical information | Liposuction technique, liposuction site |
+| Body composition | Skeletal muscle mass, body fat mass, total body water, fat-free mass, body protein, body mineral content, waist-to-hip ratio |
 
 These variables are entered through the Streamlit CDSS interface and are processed using the saved preprocessing objects before model inference.
 
@@ -98,7 +97,7 @@ The application is designed as a research-oriented prototype for intuitive posto
 
 ---
 
-## Repo Layout
+## 💻 Repo Layout
 
 ```text
 365MC-multioutput-ml/
@@ -160,6 +159,34 @@ streamlit run app/page.py
 This repository is intended for research, demonstration, and portfolio purposes.
 
 The included CDSS is a prototype implementation and should be interpreted as a decision-support tool rather than a standalone clinical decision-making system.
+
+---
+
+## 📝 Manuscript Status & Project Timeline
+
+The associated manuscript is currently under revision at a confidential SCI-indexed journal.  
+The journal name and detailed submission information are not disclosed in this public repository.
+
+| Date | Milestone | Status |
+|------|-----------|--------|
+| 2025-04-15 | Project initiated | Complete |
+| 2025-06-25 | Main model development and code implementation completed | Complete |
+| 2025-06-25 | Manuscript drafting initiated | Complete |
+| 2025-08-17 | Manuscript submitted to SCI-indexed journal | Submitted |
+| 2026-05-12 | First revision initiated | Complete |
+| 2026-06-01 | First revision completed | Complete |
+| 2026-06-30 | Second revision initiated | In progress |
+
+Current manuscript status: **under SCI journal review, second revision in progress**.
+
+---
+
+## 🧑‍💻 Team & Contributions
+
+| Contributor | Role | Main Contribution |
+|-------------|------|-------------------|
+| Selina (Seoyoung Park) | Drafting lead; Model development | Led project drafting, repository documentation, multi-output ML modeling, and final chained Extra Trees model development |
+| Chaewoo Lee | Drafting assist; CDSS development | Assisted with project drafting and developed the Streamlit-based CDSS prototype |
 
 ---
 
