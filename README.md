@@ -186,9 +186,9 @@ Current manuscript status: **under SCI journal review, second revision in progre
 
 | Area | Main | Assist | Description |
 |------|------|--------|-------------|
-| Drafting | Selina | Chaewoo Lee | Manuscript and project framing, documentation, and revision |
-| Model development | Selina | Chaewoo Lee | Multi-output ML modeling workflow and final chained Extra Trees model development |
-| CDSS development | Chaewoo Lee | Selina | Streamlit-based CDSS |
+| Drafting | Selina | Chaewoo | Manuscript and project framing, documentation, and revision |
+| Model development | Selina | Chaewoo | Multi-output ML modeling workflow and final chained Extra Trees model development |
+| CDSS development | Chaewoo | Selina | Streamlit-based CDSS |
 
 ---
 
