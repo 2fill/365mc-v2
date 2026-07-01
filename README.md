@@ -1,34 +1,122 @@
-# 365mc multi-output ML CDSS
+# 365mc Multi-output ML-based CDSS
 
-Multi-output machine learning prototype for predicting postoperative liposuction outcomes.  
-Built as a Streamlit-based clinical decision support system (CDSS) using a chained Extra Trees regression model.
+A machine learning-based clinical decision support system (CDSS) for predicting postoperative liposuction outcomes.
+
+This repository contains a multi-output prediction pipeline and a Streamlit-based CDSS prototype for individualized postoperative outcome prediction using demographic, surgical, and body composition variables.
 
 ---
 
-## Project Status
+## Overview
 
-| Module | Description | Status | Current Result | Artifact |
-|----|-------------|--------|----------------|----------|
-| M-1 | Data preprocessing and analytic dataset construction | complete | De-identified train/test datasets prepared for multi-output regression modeling | `data/` |
-| M-2 | Exploratory data analysis and feature review | complete | Body composition, surgical, and demographic variables reviewed for model development | `notebooks/02-eda.ipynb` |
-| M-3 | Multi-output model development | complete | Chained Extra Trees model selected and exported for application inference | `notebooks/03-modeling.ipynb` |
-| M-4 | Final chained Extra Trees model export | complete | Final model bundle created with trained estimator, scaler, feature columns, scaled columns, target names, and prediction order | `models/chained_et_final.pkl` |
-| M-5 | Streamlit CDSS integration | prototype complete | Interactive application implemented for individualized postoperative outcome prediction | `app/page.py` |
-| M-6 | Model interpretation outputs | complete | Correlation, feature selection, and SHAP-based interpretation figures generated | `reports/` |
+The final deployed model is a **chained Extra Trees regressor** designed for **multi-output prediction** of postoperative liposuction outcomes.
+
+The current prototype predicts:
+
+- **Postoperative weight**
+- **Postoperative body size**
+
+The repository includes:
+
+- trained model artifacts
+- model development notebooks
+- model interpretation outputs
+- a Streamlit-based user interface for prediction
+
+---
+
+## Representative Model Performance
+
+The representative final model was a **chained Extra Trees regressor**, which showed strong predictive performance for postoperative outcome prediction.
+
+| Model | Prediction Task | R² | RMSE | MAE | MAPE |
+|------|------------------|----|------|-----|------|
+| Chained Extra Trees | Postoperative outcome prediction | **0.980** | **2.356** | **1.242** | **2.199** |
+
+Additional ablation analysis showed that model performance remained high even when preoperative size was excluded.
+
+| Setting | R² |
+|---------|----|
+| Final chained Extra Trees model | **0.980** |
+| Without preoperative size | **0.975** |
+
+These results support the feasibility of multi-output machine learning for individualized postoperative prediction.
+
+---
+
+## Model Architecture
+
+<p align="center">
+  <img src="reports/model_architecture.png" alt="Multi-output model architecture" width="950">
+</p>
+
+The final model uses a **regressor chain** structure with sequential prediction:
+
+1. **Extra Tree Regressor 1** predicts postoperative weight  
+2. **Extra Tree Regressor 2** predicts postoperative size using the original input features together with the predicted postoperative weight  
+
+This chained structure allows the model to account for the dependency between postoperative outcomes.
+
+---
+
+## Input Data
+
+The model was developed using a de-identified multicenter liposuction cohort from the 365MC network in South Korea.
+
+| Item | Description |
+|------|-------------|
+| Source | 365MC multicenter liposuction registry |
+| Study period | 2024 |
+| Clinical sites | 20 obesity specialty clinics |
+| Final cohort | 7804 eligible individuals |
+| Modeling task | multi-output regression |
+| Input type | preoperative demographic, surgical, anthropometric, and body composition variables |
+| Output targets | postoperative body weight and postoperative circumferential size |
+
+---
+
+## Input Features
+
+The final model uses 15 preoperative predictors.
+
+| Category | Input variables |
+|----------|-----------------|
+| Demographics | sex, age |
+| Anthropometrics | height, preoperative body weight, BMI, preoperative circumferential size |
+| Surgical information | liposuction technique, liposuction site |
+| Body composition | skeletal muscle mass, body fat mass, total body water, fat-free mass, body protein, body mineral content, waist-to-hip ratio |
+
+These variables are entered through the Streamlit CDSS interface and are processed using the saved preprocessing objects before model inference.
+
+---
+
+## CDSS Prototype
+
+<p align="center">
+  <img src="reports/cdss_overview.png" alt="CDSS prototype screenshots" width="900">
+</p>
+
+The Streamlit-based CDSS prototype provides a step-by-step workflow for:
+
+1. **Demographics input**
+2. **Liposuction information input**
+3. **Body composition input**
+4. **Prediction output display**
+
+The application is designed as a research-oriented prototype for intuitive postoperative outcome prediction.
 
 ---
 
 ## Repo Layout
 
 ```text
-365mc-multioutput-cdss/
+365MC-multioutput-ml/
 |-- app/                 Streamlit CDSS application
 |   `-- page.py
 |
 |-- assets/              Static application assets and UI images
 |
 |-- data/                De-identified analytic datasets
-|   |-- processed/        Final processed data and inverse-scaled test examples
+|   |-- processed/
 |   |-- train_x.csv
 |   |-- train_y.csv
 |   |-- test_x.csv
@@ -43,7 +131,9 @@ Built as a Streamlit-based clinical decision support system (CDSS) using a chain
 |   |-- 03-modeling.ipynb
 |   `-- 04-modeling-final-chain-et.ipynb
 |
-|-- reports/             Model interpretation and evaluation figures
+|-- reports/             Model figures and screenshots
+|   |-- model_architecture.png
+|   |-- cdss_overview.png
 |   |-- correlation_matrix.png
 |   |-- feature_selection(L1).png
 |   |-- shap_et_weight_step1.png
@@ -55,58 +145,17 @@ Built as a Streamlit-based clinical decision support system (CDSS) using a chain
 
 ---
 
-## Model Summary
-
-The final model is a chained Extra Trees regression pipeline for multi-output postoperative outcome prediction.
-
-The model bundle includes:
-
-- trained chained Extra Trees estimator
-- scaler object
-- feature column names
-- scaled column names
-- target names
-- prediction order
-
-The chained structure allows one predicted postoperative target to inform the next prediction step, which is useful when postoperative outcomes are correlated.
-
----
-
-## Input Variables
-
-The application uses demographic, surgical, and body composition variables.
-
-| Category | Variables |
-|----------|-----------|
-| Demographics | Sex, age |
-| Anthropometrics | Height, weight, BMI, body size |
-| Body composition | Total body water, body protein, body mineral, fat-free mass, skeletal muscle mass, body fat mass, waist-hip ratio |
-| Surgical information | Liposuction site, liposuction type |
-
----
-
-## Output Targets
-
-The current CDSS prototype predicts:
-
-| Target | Description |
-|--------|-------------|
-| Postoperative weight | Predicted postoperative body weight |
-| Postoperative body size | Predicted postoperative body size measurement |
-
----
-
 ## Quick Start
 
 ### Installation
 
 ```bash
-git clone https://github.com/syselina/365mc-multioutput-cdss.git
-cd 365mc-multioutput-cdss
+git clone https://github.com/syselina/365MC-multioutput-ml.git
+cd 365MC-multioutput-ml
 pip install -r requirements.txt
 ```
 
-### Run Streamlit App
+### Run the App
 
 ```bash
 streamlit run app/page.py
@@ -114,87 +163,15 @@ streamlit run app/page.py
 
 ---
 
-## Reproducing the Workflow
+## Notes
 
-### M-1 / M-2: EDA and preprocessing
+This repository is intended for research, demonstration, and portfolio purposes.
 
-```bash
-jupyter notebook notebooks/02-eda.ipynb
-```
-
-This notebook contains exploratory data analysis, preprocessing checks, and feature review.
-
-### M-3: Model development
-
-```bash
-jupyter notebook notebooks/03-modeling.ipynb
-```
-
-This notebook contains model comparison, evaluation, and interpretation workflow.
-
-### M-4: Final model export
-
-```bash
-jupyter notebook notebooks/04-modeling-final-chain-et.ipynb
-```
-
-This notebook exports the final chained Extra Trees model bundle used by the Streamlit application.
-
----
-
-## Application Workflow
-
-1. User enters demographic information.
-2. User enters liposuction-related information.
-3. User enters body composition measurements.
-4. Application preprocesses the input using the saved scaler and feature order.
-5. Chained Extra Trees model generates multi-output predictions.
-6. Predicted postoperative outcomes are displayed in the Streamlit interface.
-
----
-
-## Evidence and Artifacts
-
-| Evidence Type | Location |
-|--------------|----------|
-| Final model bundle | `models/chained_et_final.pkl` |
-| Scaler bundle | `models/scaler_bundle.pkl` |
-| EDA notebook | `notebooks/02-eda.ipynb` |
-| Modeling notebook | `notebooks/03-modeling.ipynb` |
-| Final model notebook | `notebooks/04-modeling-final-chain-et.ipynb` |
-| Interpretation figures | `reports/` |
-| Streamlit app | `app/page.py` |
-
----
-
-## Data Notice
-
-The datasets included in this repository are de-identified analytic datasets prepared for research and demonstration purposes.
-
-No directly identifying patient information is intended to be included in this repository.
-
----
-
-## Current Limitations
-
-- This repository is a prototype implementation.
-- The Streamlit application is intended for demonstration and research use.
-- Model performance should be interpreted within the context of the available dataset and preprocessing pipeline.
-- The application should not be used as a standalone clinical decision-making tool.
-
----
-
-## Priority Next Steps
-
-1. Validate the Streamlit application after project restructuring.
-2. Confirm model loading path after moving `page.py` into `app/`.
-3. Add example input/output screenshots to the README.
-4. Add a short model performance summary table.
-5. Consider separating public demo data from full analytic data if the repository becomes public-facing.
+The included CDSS is a prototype implementation and should be interpreted as a decision-support tool rather than a standalone clinical decision-making system.
 
 ---
 
 ## Disclaimer
 
-This application is a research prototype for multi-output postoperative outcome prediction after liposuction.  
-It is not intended to replace professional clinical judgment, institutional protocols, or physician-led decision-making.
+This application is a research prototype for postoperative liposuction outcome prediction.  
+It is not intended to replace professional clinical judgment, physician decision-making, or institutional protocols.
