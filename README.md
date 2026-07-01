@@ -1,4 +1,4 @@
-# 365mc Multi-output ML-based CDSS
+# 365mc multi-output ML-based CDSS
 
 A machine learning-based clinical decision support system (CDSS) for predicting postoperative liposuction outcomes.
 
@@ -32,14 +32,6 @@ The representative final model was a **chained Extra Trees regressor**, which sh
 |------|------------------|----|------|-----|------|
 | Chained Extra Trees | Postoperative outcome prediction | **0.980** | **2.356** | **1.242** | **2.199** |
 
-Additional ablation analysis showed that model performance remained high even when preoperative size was excluded.
-
-| Setting | R² |
-|---------|----|
-| Final chained Extra Trees model | **0.980** |
-| Without preoperative size | **0.975** |
-
-These results support the feasibility of multi-output machine learning for individualized postoperative prediction.
 
 ---
 
