@@ -1,4 +1,4 @@
-# 365MC multi-output ML-based CDSS
+# 365MC multi-output ML
 
 A machine learning-based clinical decision support system (CDSS) for predicting postoperative liposuction outcomes.
 
@@ -173,9 +173,9 @@ The journal name and detailed submission information are not disclosed in this p
 | 2025-06-25 | Main model development and code implementation completed | Complete |
 | 2025-06-25 | Manuscript drafting initiated | Complete |
 | 2025-08-17 | Manuscript submitted to SCI-indexed journal | Complete |
-| 2026-05-12 | First revision initiated | Complete |
-| 2026-06-01 | First revision completed | Complete |
-| 2026-06-30 | Second revision initiated | In progress |
+| 2026-05-12 | 1st revision initiated | Complete |
+| 2026-06-01 | 1st revision completed | Complete |
+| 2026-06-30 | 2nd minor revision initiated | In progress |
 
 Current manuscript status: **under SCI journal review, second revision in progress**.
 
