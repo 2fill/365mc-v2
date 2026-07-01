@@ -1,4 +1,4 @@
-# 365MC Multi-output ML-based CDSS
+# 365MC multi-output ML-based CDSS
 
 A machine learning-based clinical decision support system (CDSS) for predicting postoperative liposuction outcomes.
 
@@ -71,10 +71,10 @@ The final model uses 15 preoperative predictors.
 
 | Category | Input variables |
 |----------|-----------------|
-| Demographics | Sex, age |
-| Anthropometrics | Height, preoperative body weight, BMI, preoperative circumferential size |
-| Surgical information | Liposuction technique, liposuction site |
-| Body composition | Skeletal muscle mass, body fat mass, total body water, fat-free mass, body protein, body mineral content, waist-to-hip ratio |
+| Demographics | sex, age |
+| Anthropometrics | height, preoperative body weight, BMI, preoperative circumferential size |
+| Surgical information | liposuction technique, liposuction site |
+| Body composition | skeletal muscle mass, body fat mass, total body water, fat-free mass, body protein, body mineral content, waist-to-hip ratio |
 
 These variables are entered through the Streamlit CDSS interface and are processed using the saved preprocessing objects before model inference.
 
@@ -104,25 +104,25 @@ The application is designed as a research-oriented prototype for intuitive posto
 |-- app/                 Streamlit CDSS application
 |   `-- page.py
 |
-|-- assets/              Static application assets and UI images
+|-- assets/              UI images
 |
-|-- data/                De-identified analytic datasets
+|-- data/                De-identified datasets
 |   |-- processed/
 |   |-- train_x.csv
 |   |-- train_y.csv
 |   |-- test_x.csv
 |   `-- test_y.csv
 |
-|-- models/              Runtime model artifacts
+|-- models/              
 |   |-- chained_et_final.pkl
 |   `-- scaler_bundle.pkl
 |
-|-- notebooks/           Research and model development notebooks
+|-- notebooks/           
 |   |-- 02-eda.ipynb
 |   |-- 03-modeling.ipynb
-|   `-- 04-modeling-final-chain-et.ipynb
+|   `-- 04-modeling-final-chain-et.ipynb     Main final model notebook       
 |
-|-- reports/             Model figures and screenshots
+|-- reports/            
 |   |-- model_architecture.png
 |   |-- cdss_overview.png
 |   |-- correlation_matrix.png
@@ -172,7 +172,7 @@ The journal name and detailed submission information are not disclosed in this p
 | 2025-04-15 | Project initiated | Complete |
 | 2025-06-25 | Main model development and code implementation completed | Complete |
 | 2025-06-25 | Manuscript drafting initiated | Complete |
-| 2025-08-17 | Manuscript submitted to SCI-indexed journal | Submitted |
+| 2025-08-17 | Manuscript submitted to SCI-indexed journal | completed |
 | 2026-05-12 | First revision initiated | Complete |
 | 2026-06-01 | First revision completed | Complete |
 | 2026-06-30 | Second revision initiated | In progress |
@@ -181,12 +181,14 @@ Current manuscript status: **under SCI journal review, second revision in progre
 
 ---
 
+
 ## 🧑‍💻 Team & Contributions
 
-| Contributor | Role | Main Contribution |
-|-------------|------|-------------------|
-| Selina (Seoyoung Park) | Drafting lead; Model development | Led project drafting, repository documentation, multi-output ML modeling, and final chained Extra Trees model development |
-| Chaewoo Lee | Drafting assist; CDSS development | Assisted with project drafting and developed the Streamlit-based CDSS prototype |
+| Area | Main | Assist | Description |
+|------|------|--------|-------------|
+| Project drafting | Selina | Chaewoo Lee | Manuscript and project framing, documentation, and revision |
+| Model development | Selina | Chaewoo Lee | Multi-output ML modeling workflow and final chained Extra Trees model development |
+| CDSS development | Chaewoo Lee | Selina | Streamlit-based CDSS |
 
 ---
 
