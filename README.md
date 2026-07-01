@@ -172,7 +172,7 @@ The journal name and detailed submission information are not disclosed in this p
 | 2025-04-15 | Project initiated | Complete |
 | 2025-06-25 | Main model development and code implementation completed | Complete |
 | 2025-06-25 | Manuscript drafting initiated | Complete |
-| 2025-08-17 | Manuscript submitted to SCI-indexed journal | completed |
+| 2025-08-17 | Manuscript submitted to SCI-indexed journal | Complete |
 | 2026-05-12 | First revision initiated | Complete |
 | 2026-06-01 | First revision completed | Complete |
 | 2026-06-30 | Second revision initiated | In progress |
@@ -186,7 +186,7 @@ Current manuscript status: **under SCI journal review, second revision in progre
 
 | Area | Main | Assist | Description |
 |------|------|--------|-------------|
-| Project drafting | Selina | Chaewoo Lee | Manuscript and project framing, documentation, and revision |
+| Drafting | Selina | Chaewoo Lee | Manuscript and project framing, documentation, and revision |
 | Model development | Selina | Chaewoo Lee | Multi-output ML modeling workflow and final chained Extra Trees model development |
 | CDSS development | Chaewoo Lee | Selina | Streamlit-based CDSS |
 
